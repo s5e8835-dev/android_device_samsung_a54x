@@ -12,6 +12,7 @@ type kpm_efs_file, fs_type;
 type mb_po_efs_file, fs_type;
 type pdp_efs_file, fs_type;
 type ssm_efs_file, fs_type;
+type proc_simslot_count, fs_type, proc_type;
 type proc_swappiness, fs_type, proc_type;
 
 # sysfs types
