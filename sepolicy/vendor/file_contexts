@@ -65,6 +65,7 @@
 
 # GPS
 /sys/devices/soc0/machine                                     u:object_r:sysfs_sec_gps:s0
+/sys/devices/soc0/revision                                    u:object_r:sysfs_sec_gps:s0
 
 # Wakeup
 /sys/devices/platform/(.*)/wakeup[0-9]*(/.*)?                 u:object_r:sysfs_wakeup:s0
