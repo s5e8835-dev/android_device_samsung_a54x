@@ -1,5 +1,9 @@
 genfscon proc /simslot_count                                                                                   u:object_r:proc_simslot_count:s0
 genfscon proc /sys/vm/swappiness                                                                               u:object_r:proc_swappiness:s0
+
+# Sysfs
+# Class
+genfscon sysfs /class/nfc_sec                                                                                 u:object_r:sysfs_nfc_power_writable:s0
 genfscon sysfs /class/video4linux                                                                              u:object_r:sysfs_v4l:s0
 
 # Devices

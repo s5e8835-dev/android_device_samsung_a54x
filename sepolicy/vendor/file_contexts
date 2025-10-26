@@ -17,6 +17,9 @@
 /dev/mali[0-9]                               u:object_r:gpu_device:s0
 /dev/g2d                                     u:object_r:graphics_device:s0
 
+# NFC
+/dev/pn547                                    u:object_r:nfc_device:s0
+
 # Secmem
 /dev/s5p-smem                                u:object_r:secmem_device:s0
 
@@ -72,3 +75,4 @@
 
 # Vendor
 /(vendor|system/vendor)/bin/hw/gps.sh        u:object_r:gpsd_exec:s0
+/(vendor|system/vendor)/bin/hw/nxp\.android\.hardware\.nfc@1\.2-service                      u:object_r:hal_nfc_default_exec:s0
