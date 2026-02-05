@@ -344,6 +344,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     SamsungEsimSwitcher
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/permissions/no-esim.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/no-esim/android.hardware.telephony.euicc.xml
+
 #OpenEUICC
 ifneq ($(wildcard $(LOCAL_PATH)/openeuicc),)
 PRODUCT_PACKAGES += \

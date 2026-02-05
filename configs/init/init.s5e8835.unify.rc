@@ -24,6 +24,12 @@ on early-init && property:ro.boot.em.model=SM-A546E
     # TEEgris
     mount none /vendor/tee/SM-A546E /vendor/tee bind
 
+on post-fs-data && property:ro.boot.em.model=SM-A546E
+    # Hide the APKs and suppress the feature before Android scans the partitions.
+    mount none /system_ext/etc/no-esim /product/priv-app/OpenEUICC bind
+    mount none /system_ext/etc/no-esim /system_ext/priv-app/SamsungEsimSwitcher bind
+    mount none /system_ext/etc/no-esim/android.hardware.telephony.euicc.xml /system_ext/etc/permissions/android.hardware.telephony.euicc.xml bind
+
 # Restart just to be safe.
 on boot
     restart audioserver

@@ -1,0 +1,4 @@
+type a54x_euicc_feature_file, file_type, system_file_type;
+
+allow init a54x_euicc_feature_file:file mounton;
+allow system_server a54x_euicc_feature_file:file r_file_perms;

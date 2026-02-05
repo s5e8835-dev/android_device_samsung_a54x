@@ -499,6 +499,11 @@ static bool propEquals(const char* key, const char* expect) {
     return std::strcmp(value, expect) == 0;
 }
 
+static bool hasHybridEuicc() {
+    static const bool supported = propEquals("ro.boot.em.model", "SM-A546B");
+    return supported;
+}
+
 static bool fireAndWait(
         int request, void* data, size_t datalen, int timeoutMs,
         RIL_SOCKET_ID socketId) {
@@ -994,7 +999,8 @@ static void shimOnRequestComplete(
         }
     }
 
-    if (request == RIL_REQUEST_GET_SIM_STATUS && e == RIL_E_SUCCESS && response != nullptr) {
+    if (hasHybridEuicc() && request == RIL_REQUEST_GET_SIM_STATUS && e == RIL_E_SUCCESS &&
+        response != nullptr) {
         // Learn / verify the ATR offset from any socket.
         if (responselen >= kCardStatusAppsEnd) {
             cardStatusAtrState(response, responselen);
@@ -1037,13 +1043,13 @@ static void shimOnRequest(
     // Must run before logging so breadcrumbs show the CLA/payload actually sent.
     fixupSamsungApduCla(request, data, datalen);
 
-    if (isApduDiagRequest(request)) {
+    if (hasHybridEuicc() && isApduDiagRequest(request)) {
         logApduRequest(request, data, datalen, socketId, token);
     }
 
     // Populate EuiccCard.mCardId without framework patches: when telephony
     // asks for GetEID over ES10 and the modem returns empty, answer from EFS.
-    if (isGetEidApdu(request, data, datalen)) {
+    if (hasHybridEuicc() && isGetEidApdu(request, data, datalen)) {
         if (completeGetEidSynthetic(token)) {
             // Clear tracking — we completed locally, no modem response.
             TrackedApdu discarded;
@@ -1213,8 +1219,10 @@ extern "C" const RIL_RadioFunctions* RIL_Init(
         return nullptr;
     }
 
-    startEsimWatcher();
-    ALOGI("installed SMSC format + esim OEM-switch shim");
+    if (hasHybridEuicc()) {
+        startEsimWatcher();
+    }
+    ALOGI("installed SMSC format shim (hybrid eUICC: %s)", hasHybridEuicc() ? "yes" : "no");
     return real;
 }
 
