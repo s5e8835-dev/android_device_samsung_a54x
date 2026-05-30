@@ -20,6 +20,12 @@ BOARD_VENDOR := samsung
 TARGET_BOARD_PLATFORM := s5e8835
 TARGET_BOOTLOADER_BOARD_NAME := s5e8835
 TARGET_SOC := s5e8835
+
+# Apply display color transforms through Exynos HWC instead of forcing all
+# layers into client composition when Night Light is active.
+BOARD_USES_DISPLAY_COLOR_INTERFACE := true
+HWC_SUPPORT_COLOR_TRANSFORM := true
+
 include hardware/samsung_slsi-linaro/config/BoardConfig8835.mk
 
 ## Security
