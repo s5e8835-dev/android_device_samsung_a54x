@@ -8,6 +8,7 @@
         <library name="loudness_enhancer" path="libldnhncr.so"/>
         <library name="dynamics_processing" path="libdynproc.so"/>
         <library name="dap" path="libswdap.so"/>
+        <library name="spatializer" path="libswspatializer.so"/>
         <library name="soundbooster_plus" path="libsamsungSoundbooster_plus.so"/>
     </libraries>
     <effects>
@@ -24,6 +25,7 @@
         <effect name="loudness_enhancer" library="loudness_enhancer" uuid="fa415329-2034-4bea-b5dc-5b381c8d1e2c"/>
         <effect name="dynamics_processing" library="dynamics_processing" uuid="e0e6539b-1781-7261-676f-6d7573696340"/>
         <effect name="dap" library="dap" uuid="6ab06da4-c516-4611-8166-452799218539"/>
+        <effect name="spatializer" library="spatializer" uuid="ccd4cf09-a79d-46c2-9aae-06a1698d6c8f"/>
         <effect name="soundbooster_plus" library="soundbooster_plus" uuid="50de45f0-5d4c-11e5-a837-0800200c9a66"/>
     </effects>
 </audio_effects_conf>
