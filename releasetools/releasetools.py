@@ -17,9 +17,49 @@
 import common
 import re
 
+MODEL = 'getprop("ro.boot.em.model")'
+MODEM = 's5e8835.modem_version()'
+MODEM_RE = re.compile(r'require\s+modem\.(SM-[A-Z0-9]+)\s*=\s*([A-Z0-9]{13})')
+
+def OTA_Assertions(info, input_zip):
+  required = {}
+  for line in input_zip.read("OTA/android-info-extra.txt").decode('utf-8').splitlines():
+    line = line.strip()
+    if not line or line.startswith('#'):
+      continue
+    match = MODEM_RE.fullmatch(line)
+    if not match:
+      raise ValueError(f"Invalid modem requirement: {line!r}")
+    model, version = match.groups()
+    if model in required or not version.startswith(model.removeprefix("SM-")):
+      raise ValueError(f"Invalid modem requirement for {model}: {version}")
+    required[model] = version
+
+  if not required:
+    raise ValueError("No required modem versions in android-info-extra.txt")
+
+  models = ' || '.join(f'{MODEL} == "{model}"' for model in required)
+  info.script.AppendExtra(
+      f'{models} || abort("E3004: Unsupported model: " + {MODEL} + ".");')
+  for model, version in required.items():
+    info.script.AppendExtra(f'if {MODEL} == "{model}" then')
+    info.script.AppendExtra(
+        f'  {MODEM} == "{version}" || abort("E3004: {model} requires modem {version}; '
+        f'found " + {MODEM} + ".");')
+    info.script.AppendExtra('endif;')
+
+def FullOTA_Assertions(info):
+  OTA_Assertions(info, info.input_zip)
+
 def FullOTA_InstallEnd(info):
   OTA_InstallEnd(info)
   return
+
+def IncrementalOTA_Assertions(info):
+  # Downgrades use the source update-binary, which may not have modem_version().
+  if common.OPTIONS.downgrade:
+    raise ValueError("Use a full OTA to downgrade with modem verification")
+  OTA_Assertions(info, info.target_zip)
 
 def IncrementalOTA_InstallEnd(info):
   info.input_zip = info.target_zip

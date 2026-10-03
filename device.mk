@@ -45,6 +45,7 @@ PRODUCT_PACKAGES += \
 # Update
 AB_OTA_UPDATER := false
 PRODUCT_SOONG_NAMESPACES += bootable/deprecated-ota
+TARGET_ANDROID_INFO_EXTRA_FILE := device/samsung/a54x/configs/installer/android-info-extra.txt
 
 # Kernel
 PRODUCT_SET_DEBUGFS_RESTRICTIONS := true

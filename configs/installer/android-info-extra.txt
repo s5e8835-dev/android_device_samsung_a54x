@@ -1,0 +1,7 @@
+#
+# SPDX-FileCopyrightText: The LineageOS Project
+# SPDX-License-Identifier: Apache-2.0
+#
+
+require modem.SM-A546B=A546BXXUFEYI4
+require modem.SM-A546E=A546EXXUFEYI4
