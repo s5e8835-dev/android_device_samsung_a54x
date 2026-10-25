@@ -361,7 +361,7 @@ vendor/lib64/vendor.samsung.hardware.radio.sim-V1-ndk.so|a2f0be5b802aa317d05f388
 
 # GPS
 vendor/bin/hw/gps.sh
-vendor/bin/hw/gpsd
+vendor/bin/hw/gpsd|5de5f9c69533e1b6c640c38df0d71a5814f29a13|afa618a17db15071da4cf5430f942ba54ada89e1
 vendor/bin/hw/macloader
 vendor/bin/hw/vendor.samsung.hardware.gnss-service
 vendor/etc/gnss/ca.pem
@@ -375,6 +375,11 @@ vendor/etc/init/vendor.samsung.hardware.gnss-service.rc
 vendor/lib64/gnss_aidl_lib.so
 vendor/lib64/libwrappergps.so
 vendor/lib64/vendor.samsung.hardware.gnss-V3-ndk.so
+
+# GPS - Stock TLS stack from A546BXXUFEYI4
+system/lib64/libcrypto.so:vendor/lib64/libcryptx.so|18ccb93493dc15e631b9c19f574597ca931b6dd9|6c0b591e98fc3b068c0d73d387ef061df7a63013
+system/lib64/libcurl.so:vendor/lib64/libcurx.so|27790af06f8fc24350afa76353ceed680b06e403|9743f2f5ff29bc7a2cf3cb4911deb1c971bde43e
+system/lib64/libssl.so:vendor/lib64/libssx.so|2b212c4fa3943d785540cb24bb09cdcf8b643259|63e4f8c4aedaa48d0f9e2bcabcbd6a65ecf53da9
 
 # RAMDisk
 vendor/firmware/s3907_a54x.bin:recovery/root/vendor/firmware/s3907_a54x.bin
