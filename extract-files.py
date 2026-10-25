@@ -122,6 +122,21 @@ blob_fixups: blob_fixups_user_type = {
         .replace_needed('libprotobuf-cpp-lite-3.9.1.so', 'libprotobuf-cpp-full-3.9.1.so'),
     'vendor/lib64/libenn_user_driver_gpu_lib.so': blob_fixup()
         .replace_needed('libOpenCL.so', 'libGLES_mali.so'),
+    # Keep gpsd and its stock TLS stack together. Use same-length edits:
+    # rewriting the gpsd ELF with patchelf can damage its GNSS firmware footer.
+    'vendor/bin/hw/gpsd': blob_fixup()
+        .binary_regex_replace(rb'libcrypto\.so\x00', b'libcryptx.so\x00')
+        .binary_regex_replace(rb'libssl\.so\x00', b'libssx.so\x00')
+        .binary_regex_replace(rb'libcurl\.so\x00', b'libcurx.so\x00'),
+    'vendor/lib64/libcryptx.so': blob_fixup()
+        .binary_regex_replace(rb'libcrypto\.so\x00', b'libcryptx.so\x00'),
+    'vendor/lib64/libssx.so': blob_fixup()
+        .binary_regex_replace(rb'libcrypto\.so\x00', b'libcryptx.so\x00')
+        .binary_regex_replace(rb'libssl\.so\x00', b'libssx.so\x00'),
+    'vendor/lib64/libcurx.so': blob_fixup()
+        .binary_regex_replace(rb'libcrypto\.so\x00', b'libcryptx.so\x00')
+        .binary_regex_replace(rb'libssl\.so\x00', b'libssx.so\x00')
+        .binary_regex_replace(rb'libcurl\.so\x00', b'libcurx.so\x00'),
     (
         'vendor/lib64/sensors.grip.so',
         'vendor/lib64/sensors.inputvirtual.so',
