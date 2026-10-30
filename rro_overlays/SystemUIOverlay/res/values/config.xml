@@ -28,6 +28,9 @@
     <!-- Keep the dim layer enabled as the Exynos HWC fingerprint mask marker. -->
     <bool name="config_udfpsFrameworkDimming">true</bool>
 
+    <!-- Reject screen-off UDFPS presses while the proximity sensor reports near. -->
+    <bool name="doze_long_press_proximity_check">true</bool>
+
     <!-- Compensate for the panel switching to mask level 322 (631 nits).
          Use the stock A546B nits curve with gamma 2.2 and keep at least one
          alpha step so the mask marker reaches HWC through the full 0-510 range. -->
