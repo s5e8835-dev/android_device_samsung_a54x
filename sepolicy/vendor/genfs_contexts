@@ -26,3 +26,5 @@ genfscon sysfs /kernel/mm/vmscan/mem_boost_mode                                 
 
 # Module
 genfscon sysfs /module/scsc_bt/parameters/bluetooth_address                                                    u:object_r:sysfs_bt_writable:s0
+genfscon sysfs /devices/platform/ems/emstune/req_mode                          u:object_r:sysfs_perf_boost:s0
+genfscon sysfs /devices/platform/ems/emstune/req_level                         u:object_r:sysfs_perf_boost:s0
