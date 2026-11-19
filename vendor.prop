@@ -153,3 +153,10 @@ bluetooth.profile.sap.server.enabled=true
 ## Wi-Fi
 wifi.direct.interface=p2p0
 ro.boot.wificountrycode=00
+
+# crDroid blur
+
+
+ro.surface_flinger.supports_background_blur=1
+
+ro.surface_flinger.blur_disabled_by_default=true
