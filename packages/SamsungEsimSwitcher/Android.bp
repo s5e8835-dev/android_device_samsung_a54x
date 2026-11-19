@@ -26,5 +26,5 @@ prebuilt_etc {
     name: "init.esim_switch.rc",
     src: "init.esim_switch.rc",
     sub_dir: "init",
-    vendor: true,
+    system_ext_specific: true,
 }
