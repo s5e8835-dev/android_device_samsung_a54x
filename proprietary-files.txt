@@ -197,6 +197,17 @@ vendor/lib64/libenn_user_driver_gpu_lib.so
 vendor/lib64/libenn_user_driver_unified.so
 vendor/lib64/libenn_user_lib.so
 
+# Epic
+vendor/bin/epic
+vendor/bin/hw/vendor.samsung_slsi.hardware.epic@1.0-service
+vendor/etc/epic.json
+vendor/etc/init/epic.rc
+vendor/etc/init/vendor.samsung_slsi.hardware.epic@1.0-service.rc
+vendor/lib64/hw/vendor.samsung_slsi.hardware.epic@1.0-impl.so
+vendor/lib64/libepic_helper.so
+vendor/lib64/libepicoperator.so
+vendor/lib64/vendor.samsung_slsi.hardware.epic@1.0.so
+
 # RAMDisk
 vendor/firmware/s3907_a54x.bin:recovery/root/vendor/firmware/s3907_a54x.bin
 vendor/firmware/s3907_a54x.bin:vendor_ramdisk/vendor/firmware/s3907_a54x.bin
