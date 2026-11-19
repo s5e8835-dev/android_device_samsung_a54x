@@ -450,3 +450,6 @@ vendor/lib64/libformatConverter.unifunc.so
 vendor/lib64/libscaler_sw.unifunc.so
 vendor/lib64/libjpegencoder_sw.unifunc.so
 vendor/lib64/libscaler_hw.unifunc.so
+
+# RIL
+vendor/etc/floating_feature.xml:vendor/etc/SM-A546B/floating_feature.xml
