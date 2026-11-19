@@ -35,3 +35,6 @@ ro.vendor.cscsupported=1
 ## SoC
 ro.soc.manufacturer=Samsung
 ro.soc.model=Exynos 1380
+
+## Device name
+ro.product.marketname=Galaxy A54 5G
