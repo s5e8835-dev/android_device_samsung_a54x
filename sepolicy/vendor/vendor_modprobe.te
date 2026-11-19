@@ -1,0 +1,7 @@
+allow init vendor_modprobe:process transition;
+
+allow vendor_modprobe self:capability sys_module;
+
+allow vendor_modprobe vendor_toolbox_exec:file { entrypoint rx_file_perms };
+
+allow vendor_modprobe { vendor_file system_dlkm_file }:system module_load;

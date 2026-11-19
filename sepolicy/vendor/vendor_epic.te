@@ -1,0 +1,26 @@
+type hal_vendor_epic_service_default, domain;
+type hal_vendor_epic_service_default_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(hal_vendor_epic_service_default)
+
+binder_use(hal_vendor_epic_service_default)
+binder_call(hal_vendor_epic_service_default, hwservicemanager)
+get_prop(hal_vendor_epic_service_default, hwservicemanager_prop)
+
+allow hal_vendor_epic_service_default hal_vendor_epic_hwservice:hwservice_manager { add find };
+add_service(hal_vendor_epic_service_default, hal_vendor_epic_service)
+allow hal_vendor_epic_service_default hidl_base_hwservice:hwservice_manager add;
+
+vndbinder_use(hal_vendor_epic_service_default)
+
+allow hal_vendor_epic_service_default epicd_socket:sock_file write;
+allow hal_vendor_epic_service_default epicd:unix_dgram_socket sendto;
+
+allow hal_vendor_epic_service_default vendor_data_file:dir write;
+allow hal_vendor_epic_service_default vendor_data_file:file { read lock open };
+
+allow hal_vendor_epic_service_default { hal_camera_default hal_power_default mediacodec }:binder transfer;
+
+allow hal_camera_default hal_vendor_epic_hwservice:hwservice_manager find;
+allow hal_camera_default hal_vendor_epic_service:service_manager find;
+binder_call(hal_camera_default, hal_vendor_epic_service_default)

@@ -1,3 +1,5 @@
+# Data Files
+/data/nfc(/.*)?                              u:object_r:nfc_data_file:s0
 /data/vendor/camera(/.*)?                    u:object_r:camera_vendor_data_file:s0
 /data/vendor/media(/.*)?                     u:object_r:media_vendor_data_file:s0
 /data/vendor/mediadrm(/.*)?                  u:object_r:mediadrm_vendor_data_file:s0
@@ -9,6 +11,7 @@
 
 # Camera
 /dev/m2m1shot_scaler0                        u:object_r:m2m1shot_device:s0
+/dev/video100                                u:object_r:camera_device:s0
 
 # GPS
 /dev/gnss_ipc                                u:object_r:gnss_device:s0
@@ -75,4 +78,20 @@
 
 # Vendor
 /(vendor|system/vendor)/bin/hw/gps.sh        u:object_r:gpsd_exec:s0
+/sys/devices/virtual/sec_vib_inputff/control(/.*)?    u:object_r:sysfs_vibrator:s0
+/vendor/bin/hw/android\.hardware\.vibrator(@[0-9].[0-9])?-service\.s5e8835(-haptic)?    u:object_r:hal_vibrator_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint-service\.s5e8835  u:object_r:hal_fingerprint_default_exec:s0
 /(vendor|system/vendor)/bin/hw/nxp\.android\.hardware\.nfc@1\.2-service                      u:object_r:hal_nfc_default_exec:s0
+
+# HALs
+/(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.camera\.provider-service_64    u:object_r:hal_camera_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.gnss-service                   u:object_r:hal_gnss_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.drm-service\.widevine                  u:object_r:hal_drm_widevine_exec:s0
+/(vendor|system/vendor)/bin/init\.insmod\.sh                                             u:object_r:vendor_insmod_exec:s0
+/(vendor|system/vendor)/bin/modprobe                                                     u:object_r:vendor_toolbox_exec:s0
+/(vendor|system/vendor)/bin/insmod                                                       u:object_r:vendor_toolbox_exec:s0
+/dev/vertex[0-9]+                            u:object_r:vertex_device:s0
+
+/sys/devices/virtual/camera/flash/rear_flash u:object_r:sysfs_camera_writable:s0
+/(vendor|system/vendor)/bin/hw/vendor\.samsung_slsi\.hardware\.epic@1\.0(-lazy)?-service u:object_r:hal_vendor_epic_service_default_exec:s0
+/(vendor|system/vendor)/bin/epic    u:object_r:epicd_exec:s0
