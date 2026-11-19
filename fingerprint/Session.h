@@ -6,6 +6,9 @@
 
 #pragma once
 
+#include <atomic>
+#include <memory>
+
 #include <aidl/android/hardware/biometrics/fingerprint/BnSession.h>
 #include <aidl/android/hardware/biometrics/fingerprint/ISessionCallback.h>
 
@@ -101,6 +104,11 @@ class Session : public BnSession {
     AIBinder_DeathRecipient* mDeathRecipient;
 
     DisplayState mDisplayState;
+
+    // Bumped on every pointer down/up, so a delayed finger-down event can tell whether the
+    // press it belongs to is still going on.
+    std::shared_ptr<std::atomic<uint32_t>> mPressGeneration =
+            std::make_shared<std::atomic<uint32_t>>(0);
 
     std::unique_ptr<TimedRestore> mBrightnessRestore;
     std::unique_ptr<UdfpsHandler> mUdfpsHandler;
