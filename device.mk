@@ -301,8 +301,7 @@ $(call soong_config_set_bool,samsungVibratorVars,duration_amplitude,false)
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint-service.s5e8835 \
-    A54xSystemUIOverlay
+    android.hardware.biometrics.fingerprint-service.s5e8835
 
 # UDFPS: let the HWC flag the framework dim layer as the DECON fingerprint mask
 $(call soong_config_set,samsungUdfpsVars,dim_layer_zorder,0xff)
@@ -412,3 +411,16 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.picture_in_picture.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.picture_in_picture.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml
+
+# Runtime resource overlays
+PRODUCT_PACKAGES += \
+    A54xFrameworkResOverlay \
+    A54xSystemUIOverlay \
+    A54xSettingsProviderOverlay \
+    A54xLineageSDKOverlay \
+    A54xApertureOverlay \
+    A54xCarrierConfigOverlay \
+    A54xLauncher3Overlay \
+    A54xDialerOverlay \
+    A54xSettingsOverlay \
+    A54xTelephonyOverlay
