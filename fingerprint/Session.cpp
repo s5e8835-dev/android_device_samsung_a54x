@@ -218,21 +218,8 @@ ndk::ScopedAStatus Session::onPointerDown(int32_t /*pointerId*/, int32_t /*x*/, 
                                           float /*minor*/, float /*major*/) {
     LOG(INFO) << "onPointerDown";
 
-    std::string sensorTypeProp = FingerprintHalProperties::type().value_or("");
-    if (sensorTypeProp == "udfps_optical") {
-        mBrightnessRestore =
-                std::make_unique<TimedRestore>("/sys/class/backlight/panel/brightness");
-
-        int currentBrightness = 0;
-        {
-            std::ifstream infile("/sys/class/backlight/panel/brightness");
-            if (infile.is_open()) {
-                infile >> currentBrightness;
-            }
-        }
-
-        mBrightnessRestore->set(std::max(currentBrightness, 200));
-    }
+    // The panel switches to mask_brightness through the DECON fingerprint mask layer,
+    // in sync with the framework dim layer, so the backlight is left alone here.
 
     if (FingerprintHalProperties::request_touch_event().value_or(false)) {
         mHal.request(SEM_REQUEST_TOUCH_EVENT, 2);
