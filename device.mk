@@ -277,3 +277,18 @@ PRODUCT_COPY_FILES += \
 # android.hardware.touchscreen feature declarations
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml
+
+# USB
+PRODUCT_PACKAGES += \
+    android.hardware.usb-service.samsung \
+    android.hardware.usb.gadget-service.samsung
+
+$(call soong_config_set,samsungUsbGadgetVars,gadget_name,13200000.dwc3)
+
+# android.hardware.usb feature declarations
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
+    frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/init/init.s5e8835.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.s5e8835.usb.rc
