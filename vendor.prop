@@ -89,3 +89,14 @@ media.c2.hal.selection=aidl
 
 ## Camera
 ro.camera.disableJpegR=true
+
+## Power HAL
+vendor.powerhal.disp.idle_support=false
+vendor.powerhal.interaction.min=1000
+vendor.powerhal.interaction.max=2000
+vendor.powerhal.interaction.offset=100
+
+## Memory
+mmd.zram.enabled=true
+mmd.zram.size=50%
+mmd.zram.comp_algorithm=lz4
