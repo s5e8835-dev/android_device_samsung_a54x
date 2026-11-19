@@ -298,3 +298,22 @@ PRODUCT_PACKAGES += \
     android.hardware.vibrator-service.s5e8835
 
 $(call soong_config_set_bool,samsungVibratorVars,duration_amplitude,false)
+
+# Fingerprint
+PRODUCT_PACKAGES += \
+    android.hardware.biometrics.fingerprint-service.s5e8835
+
+# UDFPS: let the HWC flag the framework dim layer as the DECON fingerprint mask
+$(call soong_config_set,samsungUdfpsVars,dim_layer_zorder,0xff)
+$(call soong_config_set,samsungUdfpsVars,udfps_zorder,0x100)
+$(call soong_config_set,surfaceflinger,udfps_lib,//hardware/samsung/fingerprint:libudfps_extension.samsung)
+
+# DOZE
+PRODUCT_PACKAGES += \
+    SamsungDoze
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
+
+# UDFPS Customization
+TARGET_HAS_UDFPS := true
