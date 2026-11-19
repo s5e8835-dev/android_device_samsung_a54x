@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The eUICC rejects LoadBoundProfilePackage sent in 63-byte STORE DATA blocks -->
+    <integer name="config_es10x_mss_default">255</integer>
+</resources>
