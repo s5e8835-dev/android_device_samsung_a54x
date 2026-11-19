@@ -197,3 +197,8 @@ $(call soong_config_set,samsungCameraVars,extra_ids,60) # ID=60 is macro
 
 ## USB
 $(call soong_config_set,samsungUsbGadgetVars,gadget_name,13200000.dwc3)
+
+## RIL
+ENABLE_VENDOR_RIL_SERVICE := true
+
+$(call soong_config_set,cbd,protocol,sipc)
