@@ -155,6 +155,48 @@ vendor/etc/vintf/manifest/manifest_android.hardware.drm-service.widevine.xml
 vendor/lib64/liboemcrypto.so
 vendor/lib64/libwvaidl.so
 
+# Camera
+vendor/lib64/libIRTA.so
+vendor/lib64/libeis_core.so
+vendor/lib64/libsec2lsi_conversion.so
+vendor/lib64/libuniapi.so
+vendor/lib64/libuniplugin.so
+
+# Camera Dependencies
+vendor/lib64/libcsc.so
+vendor/lib64/libexynosscaler.so
+vendor/lib64/libgiantmscl.so
+vendor/lib64/libhwjpeg.so
+vendor/lib64/libhwjsqz.so
+vendor/lib64/libmpbase.so
+vendor/lib64/libsemseg.so
+vendor/lib64/libsensorlistener.so
+vendor/lib64/libvpl.so
+vendor/lib64/vendor.samsung.hardware.thermal@1.0.so
+vendor/bin/hw/vendor.samsung.hardware.camera.provider-service_64|0fa27cd65d7be129dd4a39f5c191613426310dce|d778648e3bbf004a89c7ec08705889f7e8511813
+vendor/etc/init/vendor.samsung.hardware.camera.provider-service_64.rc
+vendor/etc/vintf/manifest/vendor.samsung.hardware.camera.provider-service.xml
+vendor/lib64/libExtIRTA.so
+vendor/lib64/lib_profiler.so
+vendor/lib64/libdualcam_refocus_video.so
+vendor/lib64/libsamsungcamerahal.so
+vendor/lib64/libsamsungcamerahalutils.so
+vendor/lib64/libsamsungcamerahwl_impl.so
+vendor/lib64/vendor.samsung.hardware.camera.device-V1-ndk.so
+vendor/lib64/vendor.samsung.hardware.camera.provider-V1-ndk.so
+vendor/etc/init/camera.unihal.rc
+
+# ENN
+vendor/lib64/libenn_common_utils.so
+vendor/lib64/libenn_cpu_operators.so
+vendor/lib64/libenn_engine_lib.so
+vendor/lib64/libenn_model.so
+vendor/lib64/libenn_public_api_cpp_lib.so
+vendor/lib64/libenn_user_driver_cpu.so
+vendor/lib64/libenn_user_driver_gpu_lib.so
+vendor/lib64/libenn_user_driver_unified.so
+vendor/lib64/libenn_user_lib.so
+
 # RAMDisk
 vendor/firmware/s3907_a54x.bin:recovery/root/vendor/firmware/s3907_a54x.bin
 vendor/firmware/s3907_a54x.bin:vendor_ramdisk/vendor/firmware/s3907_a54x.bin
@@ -263,3 +305,19 @@ vendor/tee/SM-A546E/driver/00000000-0000-0000-0000-53626f786476|26dc24ccc15ebbf2
 vendor/tee/SM-A546E/driver/00000000-0000-0000-0000-564c544b4456|533ea5668f15674aa3f2512236235946dae6f773
 vendor/tee/SM-A546E/ffffffff-0000-0000-0000-000000000030|96c973f6ebac698fd4fa0ae44de627b0af4b6631
 vendor/tee/SM-A546E/tui/resolution_common/ID00000100|a091703ae478a3da9b16201f559d296a665d7b8d
+
+# Camera
+vendor/lib64/hw/camera.s5e8835.so|8bc31f9e803705f24754cbc3b601ca9fe562ee5e|a22ba1271567adc175ed84578fe9159f2e14617c
+vendor/lib64/hw/camera.unihal.default.so
+vendor/lib64/unihal_entry.so
+vendor/lib64/unihal_cutils.so
+vendor/lib64/unihal_android.so
+vendor/lib64/unihal_main.so
+vendor/lib64/unihal_scenario.so
+vendor/lib64/unihal_filter_unit.so
+vendor/lib64/unihal_uniplugin@1.0.so
+vendor/lib64/libimgproc_sw.unifunc@common.so
+vendor/lib64/libformatConverter.unifunc.so
+vendor/lib64/libscaler_sw.unifunc.so
+vendor/lib64/libjpegencoder_sw.unifunc.so
+vendor/lib64/libscaler_hw.unifunc.so
