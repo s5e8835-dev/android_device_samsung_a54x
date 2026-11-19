@@ -9,3 +9,8 @@ get_prop(hal_audio_default, vendor_radio_prop);
 allow hal_audio_default sysfs_audio:file r_file_perms;
 
 allow hal_audio_default rild:unix_stream_socket connectto;
+
+allow hal_audio_default system_suspend_server:binder { call transfer };
+allow hal_audio_default hal_system_suspend_service:service_manager find;
+
+allow system_suspend_server hal_audio_default:binder transfer;

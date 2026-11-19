@@ -12,11 +12,15 @@ type kpm_efs_file, fs_type;
 type mb_po_efs_file, fs_type;
 type pdp_efs_file, fs_type;
 type ssm_efs_file, fs_type;
+
+# proc types
+type proc_bus_input, fs_type, proc_type;
 type proc_simslot_count, fs_type, proc_type;
 type proc_swappiness, fs_type, proc_type;
 
 # sysfs types
 type sysfs_audio, sysfs_type, r_fs_type, fs_type;
+typeattribute sysfs_block r_fs_type;
 type sysfs_block_writable, sysfs_type, rw_fs_type, fs_type;
 type sysfs_camera, sysfs_type, r_fs_type, fs_type;
 type sysfs_camera_writable, sysfs_type, rw_fs_type, fs_type;
@@ -24,4 +28,8 @@ type sysfs_chipid, sysfs_type, r_fs_type, fs_type;
 type sysfs_decon, sysfs_type, r_fs_type, fs_type;
 type sysfs_decon_writable, sysfs_type, rw_fs_type, fs_type;
 type sysfs_net_mtu_writable, sysfs_type, rw_fs_type, fs_type;
+type sysfs_perf_boost, sysfs_type, rw_fs_type, fs_type;
 type sysfs_v4l, sysfs_type, r_fs_type, fs_type;
+type vertex_device, dev_type;
+type hal_vendor_epic_hwservice, hwservice_manager_type;
+type hal_vendor_epic_service, hal_service_type, service_manager_type;
