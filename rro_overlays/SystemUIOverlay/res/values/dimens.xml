@@ -53,4 +53,6 @@
 
     <!-- Bottom margin size when fingerprint in display is active -->
     <dimen name="keyguard_indication_margin_bottom">12dp</dimen>
+
+    <dimen name="max_shade_window_blur_radius">12dp</dimen>
 </resources>
