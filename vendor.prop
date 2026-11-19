@@ -22,3 +22,6 @@ ro.crypto.dm_default_key.options_format.version=2
 ## Call deleteAllKeys if vold detects a factory reset
 ro.crypto.metadata_init_delete_all_keys.enabled=true
 ro.crypto.volume.metadata.method=dm-default-key
+
+## Recovery
+ro.minui.blacklist_input_devices=sec_touchproximity,grip_sensor,grip_notifier
