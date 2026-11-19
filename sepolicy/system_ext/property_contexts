@@ -1,1 +1,2 @@
 persist.ril.                  u:object_r:radio_prop:s0
+ro.product.marketname         u:object_r:build_prop:s0 exact string
