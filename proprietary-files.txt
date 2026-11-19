@@ -381,6 +381,19 @@ system/lib64/libcrypto.so:vendor/lib64/libcryptx.so|18ccb93493dc15e631b9c19f5745
 system/lib64/libcurl.so:vendor/lib64/libcurx.so|27790af06f8fc24350afa76353ceed680b06e403|9743f2f5ff29bc7a2cf3cb4911deb1c971bde43e
 system/lib64/libssl.so:vendor/lib64/libssx.so|2b212c4fa3943d785540cb24bb09cdcf8b643259|63e4f8c4aedaa48d0f9e2bcabcbd6a65ecf53da9
 
+# NFC
+system/etc/nfc_key
+vendor/bin/hw/nxp.android.hardware.nfc@1.2-service
+vendor/etc/init/init.nfc.samsung.rc
+vendor/etc/init/nxp.android.hardware.nfc@1.2-service.rc
+vendor/etc/libese-nxp.conf
+vendor/etc/libnfc-nxp.conf
+vendor/etc/nfc/libnfc-nxp_RF.conf
+vendor/etc/vintf/manifest/nxp.android.hardware.nfc@1.2-service.xml
+vendor/lib64/ese_spi_nxp.so
+vendor/lib64/nfc_nci_nxpsn.so
+vendor/lib64/vendor.samsung.hardware.nfc@2.0.so
+
 # RAMDisk
 vendor/firmware/s3907_a54x.bin:recovery/root/vendor/firmware/s3907_a54x.bin
 vendor/firmware/s3907_a54x.bin:vendor_ramdisk/vendor/firmware/s3907_a54x.bin
