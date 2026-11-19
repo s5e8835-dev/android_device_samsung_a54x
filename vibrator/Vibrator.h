@@ -77,6 +77,7 @@ class Vibrator : public BnVibrator {
  private:
     ndk::ScopedAStatus activate(uint32_t ms);
     ndk::ScopedAStatus uploadFFEffect(short effectId, int timeoutMs);
+    ndk::ScopedAStatus uploadConstantEffect(int timeoutMs);
     uint32_t effectToMs(Effect effect, ndk::ScopedAStatus* status);
     static float strengthToAmplitude(EffectStrength strength, ndk::ScopedAStatus* status);
 
