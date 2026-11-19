@@ -5,17 +5,17 @@
 //
 
 cc_library_static {
-    name: "libudfpshandler-s5e8835",
+    name: "libudfpshandler.s5e8835",
     srcs: ["UdfpsHandler.cpp"],
     shared_libs: [
         "libbase",
     ],
     vendor: true,
-    header_libs: ["samsungfingerprint_headers-s5e8835"],
+    header_libs: ["samsungfingerprint_headers.s5e8835"],
 }
 
 cc_library_headers {
-    name: "samsungfingerprint_headers-s5e8835",
+    name: "samsungfingerprint_headers.s5e8835",
     export_include_dirs: ["include"],
     vendor: true,
     header_libs: ["libhardware_headers"],
