@@ -200,3 +200,6 @@ TARGET_SCREEN_DENSITY := 450
 $(call soong_config_set_bool,samsungCameraVars,usage_64bit,true)
 
 $(call soong_config_set,samsungCameraVars,extra_ids,60) # ID=60 is macro
+
+## USB
+$(call soong_config_set,samsungUsbGadgetVars,gadget_name,13200000.dwc3)
