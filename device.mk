@@ -158,3 +158,38 @@ $(call soong_config_set,lineage_health,fast_charge_value_none,1)
 $(call soong_config_set,lineage_health,fast_charge_value_fast_charge,0)
 
 PRODUCT_PACKAGES += vendor.lineage.health-service.default
+
+# Display
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.allocator@4.0-service \
+    android.hardware.graphics.mapper@4.0-impl
+
+PRODUCT_PACKAGES += \
+    android.hardware.composer.hwc3-service.slsi
+
+# Graphics
+PRODUCT_AAPT_CONFIG := normal
+PRODUCT_AAPT_PREF_CONFIG := 450dpi
+PRODUCT_AAPT_PREBUILT_DPI := xxxhdpi xxhdpi xhdpi hdpi
+
+# Memtrack
+PRODUCT_PACKAGES += \
+    android.hardware.memtrack-service.samsung-mali
+
+# Public Libraries
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/linker/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
+
+# android.hardware.opengles feature declarations
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.opengles.aep.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.opengles.aep.xml
+
+# android.hardware.vulkan feature declarations
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.vulkan.compute-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.compute.xml \
+    frameworks/native/data/etc/android.hardware.vulkan.level-1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level.xml \
+    frameworks/native/data/etc/android.hardware.vulkan.version-1_1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version.xml
+
+# Display
+PRODUCT_PACKAGES += \
+    displayconfig.xml
