@@ -28,3 +28,19 @@ TARGET_SCREEN_WIDTH := 1080
 
 # Inherit some common Lineage stuff
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+
+# Device identifier, this must come after all inclusions
+PRODUCT_DEVICE := a54x
+PRODUCT_NAME := lineage_a54x
+PRODUCT_BRAND := samsung
+PRODUCT_MODEL := SM-A546B
+PRODUCT_MANUFACTURER := samsung
+PRODUCT_SHIPPING_API_LEVEL := 34
+
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    BuildDesc="a54xnaxx-user 16 BP2A.250605.031.A3 A546BXXUFEYI4 release-keys" \
+    BuildFingerprint=samsung/a54xnaxx/a54x:16/BP2A.250605.031.A3/A546BXXUFEYI4:user/release-keys \
+    DeviceProduct=a54xnaxx \
+    SystemName=a54xnaxx
+
+PRODUCT_GMS_CLIENTID_BASE := android-samsung
