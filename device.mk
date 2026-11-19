@@ -44,3 +44,11 @@ PRODUCT_PACKAGES += \
 # Update
 AB_OTA_UPDATER := false
 PRODUCT_SOONG_NAMESPACES += bootable/deprecated-ota
+
+# Kernel
+PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
+PRODUCT_ENABLE_UFFD_GC := true
+
+# Kernel Modules
+PRODUCT_PACKAGES += \
+    toolbox.vendor_ramdisk
