@@ -25,3 +25,13 @@ ro.crypto.volume.metadata.method=dm-default-key
 
 ## Recovery
 ro.minui.blacklist_input_devices=sec_touchproximity,grip_sensor,grip_notifier
+
+## Samsung specific
+ro.product_ship=true
+## Set csc support in OMX
+## If not set or set to 0, OMX will only use BT.601 colorspace.
+ro.vendor.cscsupported=1
+
+## SoC
+ro.soc.manufacturer=Samsung
+ro.soc.model=Exynos 1380
