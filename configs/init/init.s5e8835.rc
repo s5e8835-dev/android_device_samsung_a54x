@@ -881,6 +881,8 @@ on property:ro.debuggable=1
 
 on property:sys.boot_completed=1
     start insmod_sh_common
+    # Keep FOD available in low-power touch mode independently of double-tap to wake.
+    write /sys/class/sec/tsp/cmd fod_lp_mode,1
 
 service insmod_sh_common /vendor/bin/init.insmod.sh /vendor/etc/init.insmod.${ro.hardware}.cfg
     class main
