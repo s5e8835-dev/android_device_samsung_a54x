@@ -58,4 +58,7 @@
         <item>322,1</item>
         <item>510,1</item>
     </string-array>
+
+    <!-- The CPU temperature divider, the thermal zone reports millidegrees -->
+    <integer name="config_cpuTempDivider" translatable="false">1000</integer>
 </resources>
