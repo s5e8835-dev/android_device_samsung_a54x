@@ -70,3 +70,18 @@ PRODUCT_COPY_FILES += \
 # Init
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/init/init.s5e8835.unify.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.s5e8835.unify.rc
+
+# Libinit
+$(call soong_config_set,libinit,vendor_init_lib,//$(LOCAL_PATH)/configs/init/libinit:libinit_s5e8835)
+
+# Placeholders
+EMPTY_PLACEHOLDER := $(LOCAL_PATH)/configs/placeholder
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/placeholder.xml:$(TARGET_COPY_OUT_VENDOR)/etc/floating_feature.xml \
+    $(EMPTY_PLACEHOLDER):$(TARGET_COPY_OUT_VENDOR)/firmware/AIE.bin \
+    $(EMPTY_PLACEHOLDER):$(TARGET_COPY_OUT_VENDOR)/firmware/calliope_sram.bin \
+    $(EMPTY_PLACEHOLDER):$(TARGET_COPY_OUT_VENDOR)/firmware/mfc_fw.bin \
+    $(EMPTY_PLACEHOLDER):$(TARGET_COPY_OUT_VENDOR)/firmware/os.checked.bin \
+    $(EMPTY_PLACEHOLDER):$(TARGET_COPY_OUT_VENDOR)/firmware/pablo_icpufw.bin \
+    $(EMPTY_PLACEHOLDER):$(TARGET_COPY_OUT_VENDOR)/firmware/vts.bin
