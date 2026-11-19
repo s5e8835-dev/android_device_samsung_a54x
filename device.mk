@@ -357,3 +357,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/openeuicc/permission/privapp_whitelist_im.angry.openeuicc.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp_whitelist_im.angry.openeuicc.xml \
     frameworks/native/data/etc/android.hardware.telephony.euicc.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/android.hardware.telephony.euicc.xml
 endif
+
+# android.hardware.location.gps feature declarations
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.location.gps.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.location.gps.xml

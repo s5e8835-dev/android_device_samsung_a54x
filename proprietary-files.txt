@@ -359,6 +359,23 @@ vendor/lib64/vendor.samsung.hardware.radio.data-V1-ndk.so|de741fe8c442fbf555020c
 vendor/lib64/vendor.samsung.hardware.radio.messaging-V1-ndk.so|253e1ee51bba7e8a61e93abc198c48cdfa21cf28
 vendor/lib64/vendor.samsung.hardware.radio.sim-V1-ndk.so|a2f0be5b802aa317d05f388b44a8b1917b02cfd7
 
+# GPS
+vendor/bin/hw/gps.sh
+vendor/bin/hw/gpsd
+vendor/bin/hw/macloader
+vendor/bin/hw/vendor.samsung.hardware.gnss-service
+vendor/etc/gnss/ca.pem
+vendor/etc/gnss/deleteLogCommands
+vendor/etc/gnss/gps.cfg
+vendor/etc/gnss/gps.debug.cfg
+vendor/etc/gnss/gps.issuetracker.cfg
+vendor/etc/gnss/hardware_factors.conf
+vendor/etc/init/init.gps.rc
+vendor/etc/init/vendor.samsung.hardware.gnss-service.rc
+vendor/lib64/gnss_aidl_lib.so
+vendor/lib64/libwrappergps.so
+vendor/lib64/vendor.samsung.hardware.gnss-V3-ndk.so
+
 # RAMDisk
 vendor/firmware/s3907_a54x.bin:recovery/root/vendor/firmware/s3907_a54x.bin
 vendor/firmware/s3907_a54x.bin:vendor_ramdisk/vendor/firmware/s3907_a54x.bin
