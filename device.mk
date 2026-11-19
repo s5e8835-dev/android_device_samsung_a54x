@@ -52,3 +52,7 @@ PRODUCT_ENABLE_UFFD_GC := true
 # Kernel Modules
 PRODUCT_PACKAGES += \
     toolbox.vendor_ramdisk
+
+# fastbootd
+PRODUCT_PACKAGES += \
+    fastbootd
