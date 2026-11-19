@@ -18,6 +18,7 @@ cc_library_shared {
     shared_libs: [
         "libdl",
         "liblog",
+        "libcutils",
     ],
     include_dirs: ["hardware/ril/include"],
     vendor: true,
