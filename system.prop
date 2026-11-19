@@ -1,0 +1,5 @@
+# Display
+sys.brightness.disable_gamma_conversion=true
+
+# Netflix
+ro.netflix.bsp_rev=EXYNOS1380-36589-1
