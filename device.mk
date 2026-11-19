@@ -339,3 +339,18 @@ $(call inherit-product, hardware/lineage/generic-ims/ims.mk)
 
 PRODUCT_PACKAGES += \
     CarrierSettingsConfigOverlay
+
+# EUICC
+PRODUCT_PACKAGES += \
+    SamsungEsimSwitcher
+
+#OpenEUICC
+ifneq ($(wildcard $(LOCAL_PATH)/openeuicc),)
+PRODUCT_PACKAGES += \
+    OpenEUICC \
+    OpenEUICCOverlay
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/openeuicc/permission/privapp_whitelist_im.angry.openeuicc.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp_whitelist_im.angry.openeuicc.xml \
+    frameworks/native/data/etc/android.hardware.telephony.euicc.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/android.hardware.telephony.euicc.xml
+endif
