@@ -148,6 +148,13 @@ vendor/lib64/hw/vulkan.mali.so
 vendor/firmware/OD_V2.4.3_05_11_QVGA_QUARTZ_ENN_RGB1P.nnc
 vendor/firmware/OD_V2.5.2_05_11_VGA_QUARTZ_ENN_RGB1P.nnc
 
+# DRM
+vendor/bin/hw/android.hardware.drm-service.widevine
+vendor/etc/init/android.hardware.drm-service.widevine.rc
+vendor/etc/vintf/manifest/manifest_android.hardware.drm-service.widevine.xml
+vendor/lib64/liboemcrypto.so
+vendor/lib64/libwvaidl.so
+
 # RAMDisk
 vendor/firmware/s3907_a54x.bin:recovery/root/vendor/firmware/s3907_a54x.bin
 vendor/firmware/s3907_a54x.bin:vendor_ramdisk/vendor/firmware/s3907_a54x.bin
