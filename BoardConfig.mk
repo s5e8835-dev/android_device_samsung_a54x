@@ -24,3 +24,11 @@ include hardware/samsung_slsi-linaro/config/BoardConfig8835.mk
 
 ## Security
 VENDOR_SECURITY_PATCH := 2025-09-01
+
+## Manifest
+## HIDL
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
+    hardware/samsung/vintf/samsung_framework_compatibility_matrix.xml \
+    $(DEVICE_PATH)/configs/vintf/framework_compatibility_matrix.xml
+DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
+DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
