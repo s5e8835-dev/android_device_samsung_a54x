@@ -24,6 +24,7 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/google/pixel/thermal \
     hardware/samsung \
     hardware/samsung_slsi-linaro/exynos/cpboot_v3 \
+    hardware/samsung_slsi-linaro/exynos/gralloc/gralloc4 \
     hardware/samsung_slsi-linaro/exynos/libaudio/audiohal_comv1 \
     hardware/samsung_slsi-linaro/exynos/libaudio/audiohal_comv1/proxy \
     hardware/samsung_slsi/libbt \
