@@ -13,16 +13,25 @@
 
 using android::base::GetProperty;
 
-static const variant_info_t unknown = {
-    .device = "unknown",
-    .model = "unknown",
-    .name = "unknown",
-    .build_fingerprint = "unknown",
-    .build_desc = "unknown"
+static const variant_info_t a54xnaxx = {
+    .device = "a54x",
+    .model = "SM-A546B",
+    .name = "a54xnaxx",
+    .build_fingerprint = "samsung/a54xnaxx/a54x:16/BP2A.250605.031.A3/A546BXXUFEYI4:user/release-keys",
+    .build_desc = "a54xnaxx-user 16 BP2A.250605.031.A3 A546BXXUFEYI4 release-keys"
+};
+
+static const variant_info_t a54xnsxx = {
+    .device = "a54x",
+    .model = "SM-A546E",
+    .name = "a54xnsxx",
+    .build_fingerprint = "samsung/a54xnsxx/a54x:16/BP2A.250605.031.A3/A546EXXUFEYI4:user/release-keys",
+    .build_desc = "a54xnsxx-user 16 BP2A.250605.031.A3 A546EXXUFEYI4 release-keys"
 };
 
 static const std::vector<variant_info_t> variants = {
-    unknown,
+    a54xnaxx,
+    a54xnsxx,
 };
 
 void vendor_load_properties() {
