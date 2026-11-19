@@ -109,6 +109,45 @@ vendor/firmware/volumemonitor.bin
 # Audio Firmware - from SM-A546E - A546EXXUFEYI4
 vendor/firmware/SM-A546E/calliope_sram.bin|64fd9dc4e0fd72249d5c1ee84a636b5714ede41c
 
+# Display
+vendor/etc/dqe/calib_data_colormode0_s6e3fc5_a54x.xml
+vendor/etc/dqe/calib_data_atc_s6e3fc5_a35x.xml
+vendor/etc/dqe/calib_data_atc.xml
+vendor/etc/dqe/calib_data_bypass.xml
+vendor/etc/dqe/calib_data_colormode0.xml
+vendor/etc/dqe/calib_data_colortemp.xml
+vendor/etc/dqe/calib_data_eyetemp.xml
+vendor/etc/dqe/calib_data_rgbgain.xml
+vendor/etc/dqe/calib_data_skincolor.xml
+vendor/etc/dqe/calib_data_whitepoint.xml
+vendor/etc/dqe/DQE_coef_data.xml
+vendor/etc/dqe/hdr10Info.xml
+vendor/etc/dqe/hdr10Lut_Default.xml
+vendor/etc/dqe/hdr10Lut_Inner_SRGB.xml
+vendor/etc/dqe/hdr10pInfo.xml
+vendor/etc/dqe/hdr10pLut_Default.xml
+vendor/etc/dqe/hdr10pLut_Inner_SRGB.xml
+vendor/etc/dqe/hdrHwDPU.xml
+vendor/etc/dqe/hdrModuleSpecifiers.xml
+vendor/etc/dqe/hdrTuneLut.xml
+vendor/etc/dqe/hlgInfo.xml
+vendor/etc/dqe/hlgLut_Default.xml
+vendor/etc/dqe/hlgLut_Inner_SRGB.xml
+vendor/etc/dqe/wcgLut.xml
+vendor/lib64/libExynosHWCService.so
+vendor/lib64/libdisplaycolor_default.so
+vendor/lib64/libhdr10p_meta_plugin_default.so
+vendor/lib64/libhdr_plugin.so
+vendor/lib64/vendor.samsung.libcolor.custom.so
+
+# Graphics
+vendor/lib64/egl/libGLES_mali.so;SYMLINK=vendor/lib64/libOpenCL.so;SYMLINK=vendor/lib64/libOpenCL.so.1;SYMLINK=vendor/lib64/libOpenCL.so.1.1
+vendor/lib64/hw/vulkan.mali.so
+
+# OD
+vendor/firmware/OD_V2.4.3_05_11_QVGA_QUARTZ_ENN_RGB1P.nnc
+vendor/firmware/OD_V2.5.2_05_11_VGA_QUARTZ_ENN_RGB1P.nnc
+
 # RAMDisk
 vendor/firmware/s3907_a54x.bin:recovery/root/vendor/firmware/s3907_a54x.bin
 vendor/firmware/s3907_a54x.bin:vendor_ramdisk/vendor/firmware/s3907_a54x.bin
