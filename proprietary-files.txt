@@ -394,6 +394,25 @@ vendor/lib64/ese_spi_nxp.so
 vendor/lib64/nfc_nci_nxpsn.so
 vendor/lib64/vendor.samsung.hardware.nfc@2.0.so
 
+# WiFi
+vendor/bin/init.insmod.sh
+vendor/etc/init/wifi_slsi.rc
+vendor/etc/init.insmod.s5e8835.cfg
+
+# WiFi Firmware
+vendor/firmware/wifi/hydra_config.sdb
+vendor/firmware/wifi/mx140/build_id.txt
+vendor/firmware/wifi/mx140/wpal
+vendor/firmware/wifi/mx140.bin
+vendor/firmware/wifi/mx140_bt.hcf
+vendor/firmware/wifi/mx140_common.hcf
+vendor/firmware/wifi/mx140_wlan.hcf
+vendor/firmware/wifi/mx140_wlan_sw.hcf
+vendor/firmware/wifi/mx140_wlan_t.hcf
+vendor/firmware/wifi/mx140_wlan_t_sw.hcf
+vendor/firmware/wifi/platform.txt
+vendor/firmware/wifi/slsi_reg_database.bin
+
 # RAMDisk
 vendor/firmware/s3907_a54x.bin:recovery/root/vendor/firmware/s3907_a54x.bin
 vendor/firmware/s3907_a54x.bin:vendor_ramdisk/vendor/firmware/s3907_a54x.bin
