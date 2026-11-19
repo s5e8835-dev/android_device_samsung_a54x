@@ -130,7 +130,7 @@ ndk::ScopedAStatus Vibrator::on(int32_t timeoutMs,
         writeNode(VIBRATOR_CP_TRIGGER_PATH, 0);  // Clear all effects
 
     if (mIsForceFeedbackVibrator)
-        uploadFFEffect(0, timeoutMs);
+        uploadFFEffect(FF_EFFECT_IDS[Effect::CLICK], timeoutMs);
 
 #ifdef VIBRATOR_SUPPORTS_DURATION_AMPLITUDE_CONTROL
     timeoutMs *= mDurationAmplitude;
@@ -362,9 +362,10 @@ ndk::ScopedAStatus Vibrator::uploadFFEffect(short effectId, int timeoutMs) {
     data[1] = 0;
 
     // Remove previously uploaded effect in case it exists
-    ret = ioctl(mVibratorFd, EVIOCRMFF, 0);
-    if (ret == -1) {
+    ret = ioctl(mVibratorFd, EVIOCRMFF, mUploadedEffectId);
+    if (ret == -1 && mUploadedEffectId != -1) {
         LOG(WARNING) << "Failed to remove effect";
+        mUploadedEffectId = -1;
     }
     
 struct ff_effect effect = {
@@ -402,6 +403,7 @@ struct ff_effect effect = {
         LOG(ERROR) << "Effect upload failed: " << errno;
         return ndk::ScopedAStatus::fromStatus(STATUS_UNKNOWN_ERROR);
     }
+    mUploadedEffectId = effect.id;
     return ndk::ScopedAStatus::ok();
 }
 

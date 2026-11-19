@@ -95,6 +95,7 @@ class Vibrator : public BnVibrator {
     bool mHasTimedOutEffect;
 
     int mVibratorFd{-1};
+    int mUploadedEffectId{-1};
 };
 
 }  // namespace vibrator
