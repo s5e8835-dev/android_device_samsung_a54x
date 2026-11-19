@@ -202,3 +202,6 @@ $(call soong_config_set,samsungUsbGadgetVars,gadget_name,13200000.dwc3)
 ENABLE_VENDOR_RIL_SERVICE := true
 
 $(call soong_config_set,cbd,protocol,sipc)
+
+## Bluetooth
+BOARD_HAVE_BLUETOOTH_SLSI := true
