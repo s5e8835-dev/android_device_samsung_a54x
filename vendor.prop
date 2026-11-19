@@ -7,3 +7,6 @@ ro.apk_verity.mode=2
 ## Dalvik
 dalvik.vm.dex2oat64.enabled=true
 dalvik.vm.lockprof.threshold=500
+
+## FRP
+ro.frp.pst=/dev/block/by-name/persistent
