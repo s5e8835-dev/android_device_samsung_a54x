@@ -45,3 +45,11 @@ ro.hardware.keystore_desede=true
 persist.logd.logpersistd=logcatd
 persist.logd.logpersistd.size=4
 persist.logd.logpersistd.rotate_kbytes=1024
+
+## Audio
+audio.offload.min.duration.secs=30
+aaudio.mmap_policy=2
+aaudio.mmap_exclusive_policy=2
+aaudio.hw_burst_min_usec=2000
+af.fast_track_multiplier=1
+ro.audio.spatializer_enabled=true
