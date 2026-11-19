@@ -56,3 +56,17 @@ PRODUCT_PACKAGES += \
 # fastbootd
 PRODUCT_PACKAGES += \
     fastbootd
+
+# Init
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/init/fstab.s5e8835:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/fstab.s5e8835 \
+    $(LOCAL_PATH)/configs/init/fstab.s5e8835:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.s5e8835 \
+    $(LOCAL_PATH)/configs/init/fstab.s5e8835:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.s5e8835 \
+    $(LOCAL_PATH)/configs/init/init.s5e8835.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.s5e8835.rc \
+    $(LOCAL_PATH)/configs/init/init.recovery.s5e8835.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.s5e8835.rc \
+    $(LOCAL_PATH)/configs/init/init.samsung.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.samsung.rc \
+    $(LOCAL_PATH)/configs/init/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/etc/ueventd.rc
+
+# Init
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/init/init.s5e8835.unify.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.s5e8835.unify.rc
