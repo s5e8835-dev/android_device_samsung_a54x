@@ -109,3 +109,9 @@ ro.vendor.fingerprint.request_touch_event=true
 ## Fingerprint
 # Stock 12 mm active diameter at the panel's 403.4 physical xdpi.
 ro.vendor.fingerprint.sensor_location=540|2082|95
+
+## RIL
+ro.carrier=unknown
+ro.radio.noril=no
+vendor.rild.libpath=/vendor/lib64/libsec-ril.so
+vendor.sec.rild.libpath=/vendor/lib64/libsec-ril.so
