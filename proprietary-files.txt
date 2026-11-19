@@ -1,1 +1,34 @@
 # All blobs are from A546BXXUFEYI4 (B), unless pinned
+
+# RAMDisk
+vendor/firmware/s3907_a54x.bin:recovery/root/vendor/firmware/s3907_a54x.bin
+vendor/firmware/s3907_a54x.bin:vendor_ramdisk/vendor/firmware/s3907_a54x.bin
+
+# Firmware
+vendor/firmware/AIE.bin:vendor/firmware/SM-A546B/AIE.bin
+vendor/firmware/SetMultiCalInfo.bin
+vendor/firmware/camera_tilt_calibration_info_1_2
+vendor/firmware/mfc_fw.bin:vendor/firmware/SM-A546B/mfc_fw.bin
+vendor/firmware/os.checked.bin:vendor/firmware/SM-A546B/os.checked.bin
+vendor/firmware/pablo_icpufw.bin:vendor/firmware/SM-A546B/pablo_icpufw.bin
+vendor/firmware/s3907_a54x.bin
+vendor/firmware/setfile_3l6.bin
+vendor/firmware/setfile_4ha.bin
+vendor/firmware/setfile_gc02m1.bin
+vendor/firmware/setfile_gc5035.bin
+vendor/firmware/setfile_gd2.bin
+vendor/firmware/setfile_hm6.bin
+vendor/firmware/setfile_imx616.bin
+vendor/firmware/setfile_imx766.bin
+vendor/firmware/vts.bin:vendor/firmware/SM-A546B/vts.bin
+vendor/firmware/nfc/libsn220u_fw.so
+
+# Floating feature - from SM-A546E - A546EXXUFEYI4
+vendor/etc/SM-A546E/floating_feature.xml|3c8775697b3bddac6667312b002c807bd6667a3c
+
+# Firmware - from SM-A546E - A546EXXUFEYI4
+vendor/firmware/SM-A546E/AIE.bin|30576e7b6193285043c0c9a903264704994fb551
+vendor/firmware/SM-A546E/mfc_fw.bin|9eb8782d704b6a8fce2f7751ef98f219cff560c9
+vendor/firmware/SM-A546E/os.checked.bin|886bd2ee45e7cd504399f299fcdc13a8f395e03b
+vendor/firmware/SM-A546E/pablo_icpufw.bin|34f2c7091a0dfa53b252e7a3e2c31f8e9bfa9df4
+vendor/firmware/SM-A546E/vts.bin|94cd145732adaf303fbdb4fea40ee9b6ccbeabdc
