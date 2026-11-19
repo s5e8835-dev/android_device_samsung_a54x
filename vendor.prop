@@ -103,3 +103,13 @@ vendor.powerhal.interaction.offset=100
 mmd.zram.enabled=true
 mmd.zram.size=50%
 mmd.zram.comp_algorithm=lz4
+
+## Fingerprint
+ro.vendor.fingerprint.type=udfps_optical
+ro.vendor.fingerprint.force_calibrate=1
+ro.vendor.fingerprint.request_touch_event=true
+
+## Fingerprint
+# Stock 12 mm active diameter at the panel's 403.4 physical xdpi.
+ro.vendor.fingerprint.sensor_location=540|2082|95
+ro.vendor.fingerprint.screen_off_press_delay=400
