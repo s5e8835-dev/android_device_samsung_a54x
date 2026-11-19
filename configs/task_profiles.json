@@ -1,0 +1,28 @@
+{
+  "Profiles": [
+    {
+      "Name": "SFMainPolicy",
+      "Actions": [
+        {
+          "Name": "JoinCgroup",
+          "Params": {
+            "Controller": "cpuset",
+            "Path": "sf"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "SFRenderEnginePolicy",
+      "Actions": [
+        {
+          "Name": "JoinCgroup",
+          "Params": {
+            "Controller": "cpuset",
+            "Path": "sf"
+          }
+        }
+      ]
+    }
+  ]
+}
