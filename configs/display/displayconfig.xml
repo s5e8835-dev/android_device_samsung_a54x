@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<displayConfiguration>
+    <screenBrightnessMap>
+        <point>
+            <value>0.0</value>
+            <nits>2</nits>
+        </point>
+        <point>
+            <value>0.0157</value>
+            <nits>7.5</nits>
+        </point>
+        <point>
+            <value>0.049</value>
+            <nits>26.3</nits>
+        </point>
+        <point>
+            <value>0.1431</value>
+            <nits>100</nits>
+        </point>
+        <point>
+            <value>0.3843</value>
+            <nits>355.7</nits>
+        </point>
+        <point>
+            <value>0.4647</value>
+            <nits>454.8</nits>
+        </point>
+        <point>
+            <value>0.5</value>
+            <nits>500</nits>
+        </point>
+        <point>
+            <value>0.5843</value>
+            <nits>584.3</nits>
+        </point>
+        <point>
+            <value>0.7804</value>
+            <nits>780.4</nits>
+        </point>
+        <point>
+            <value>1.0</value>
+            <nits>1000</nits>
+        </point>
+    </screenBrightnessMap>
+
+    <highBrightnessMode enabled="true">
+        <transitionPoint>0.5</transitionPoint>
+        <minimumLux>3000</minimumLux>
+        <timing>
+            <timeWindowSecs>0</timeWindowSecs>
+            <timeMaxSecs>0</timeMaxSecs>
+            <timeMinSecs>0</timeMinSecs>
+        </timing>
+        <!-- Boost HDR by up to 3x at low SDR brightness, tapering to no boost
+             at the panel's reported 450-nit HDR peak. -->
+        <sdrHdrRatioMap>
+            <point>
+                <sdrNits>2</sdrNits>
+                <hdrRatio>3.0</hdrRatio>
+            </point>
+            <point>
+                <sdrNits>100</sdrNits>
+                <hdrRatio>3.0</hdrRatio>
+            </point>
+            <point>
+                <sdrNits>150</sdrNits>
+                <hdrRatio>2.30</hdrRatio>
+            </point>
+            <point>
+                <sdrNits>200</sdrNits>
+                <hdrRatio>1.90</hdrRatio>
+            </point>
+            <point>
+                <sdrNits>250</sdrNits>
+                <hdrRatio>1.60</hdrRatio>
+            </point>
+            <point>
+                <sdrNits>300</sdrNits>
+                <hdrRatio>1.38</hdrRatio>
+            </point>
+            <point>
+                <sdrNits>350</sdrNits>
+                <hdrRatio>1.21</hdrRatio>
+            </point>
+            <point>
+                <sdrNits>400</sdrNits>
+                <hdrRatio>1.09</hdrRatio>
+            </point>
+            <point>
+                <sdrNits>450</sdrNits>
+                <hdrRatio>1.0</hdrRatio>
+            </point>
+        </sdrHdrRatioMap>
+    </highBrightnessMode>
+
+    <autoBrightness enabled="true">
+        <brighteningLightDebounceMillis>2000</brighteningLightDebounceMillis>
+        <darkeningLightDebounceMillis>6000</darkeningLightDebounceMillis>
+        <brighteningLightDebounceIdleMillis>2000</brighteningLightDebounceIdleMillis>
+        <darkeningLightDebounceIdleMillis>6000</darkeningLightDebounceIdleMillis>
+    </autoBrightness>
+
+    <hdrBrightnessConfig>
+        <brightnessMap>
+        </brightnessMap>
+        <brightnessIncreaseDebounceMillis>0</brightnessIncreaseDebounceMillis>
+        <screenBrightnessRampIncrease>-1.0</screenBrightnessRampIncrease>
+        <brightnessDecreaseDebounceMillis>0</brightnessDecreaseDebounceMillis>
+        <screenBrightnessRampDecrease>-1.0</screenBrightnessRampDecrease>
+    </hdrBrightnessConfig>
+
+    <lightSensor>
+        <type>android.sensor.light</type>
+    </lightSensor>
+</displayConfiguration>
