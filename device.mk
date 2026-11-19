@@ -292,3 +292,9 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/init/init.s5e8835.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.s5e8835.usb.rc
+
+# Vibrator
+PRODUCT_PACKAGES += \
+    android.hardware.vibrator-service.s5e8835
+
+$(call soong_config_set_bool,samsungVibratorVars,duration_amplitude,false)
