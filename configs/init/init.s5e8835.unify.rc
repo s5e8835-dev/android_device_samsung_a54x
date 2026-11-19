@@ -1,0 +1,29 @@
+# a54xnaxx (eur_open)
+on early-init && property:ro.boot.em.model=SM-A546B
+    # Firmware blobs
+    mount none /vendor/etc/SM-A546B/floating_feature.xml /vendor/etc/floating_feature.xml bind
+    mount none /vendor/firmware/SM-A546B/AIE.bin /vendor/firmware/AIE.bin bind
+    mount none /vendor/firmware/SM-A546B/calliope_sram.bin /vendor/firmware/calliope_sram.bin bind
+    mount none /vendor/firmware/SM-A546B/mfc_fw.bin /vendor/firmware/mfc_fw.bin bind
+    mount none /vendor/firmware/SM-A546B/os.checked.bin /vendor/firmware/os.checked.bin bind
+    mount none /vendor/firmware/SM-A546B/pablo_icpufw.bin /vendor/firmware/pablo_icpufw.bin bind
+    mount none /vendor/firmware/SM-A546B/vts.bin /vendor/firmware/vts.bin bind
+    # TEEgris
+    mount none /vendor/tee/SM-A546B /vendor/tee bind
+
+# a54xnsxx (cis_open)
+on early-init && property:ro.boot.em.model=SM-A546E
+    # Firmware blobs
+    mount none /vendor/etc/SM-A546E/floating_feature.xml /vendor/etc/floating_feature.xml bind
+    mount none /vendor/firmware/SM-A546E/AIE.bin /vendor/firmware/AIE.bin bind
+    mount none /vendor/firmware/SM-A546E/calliope_sram.bin /vendor/firmware/calliope_sram.bin bind
+    mount none /vendor/firmware/SM-A546E/mfc_fw.bin /vendor/firmware/mfc_fw.bin bind
+    mount none /vendor/firmware/SM-A546E/os.checked.bin /vendor/firmware/os.checked.bin bind
+    mount none /vendor/firmware/SM-A546E/pablo_icpufw.bin /vendor/firmware/pablo_icpufw.bin bind
+    mount none /vendor/firmware/SM-A546E/vts.bin /vendor/firmware/vts.bin bind
+    # TEEgris
+    mount none /vendor/tee/SM-A546E /vendor/tee bind
+
+# Restart just to be safe.
+on boot
+    restart audioserver
