@@ -35,3 +35,10 @@ ro.vendor.cscsupported=1
 ## SoC
 ro.soc.manufacturer=Samsung
 ro.soc.model=Exynos 1380
+
+## Keystore
+ro.hardware.keystore_desede=true
+
+persist.logd.logpersistd=logcatd
+persist.logd.logpersistd.size=4
+persist.logd.logpersistd.rotate_kbytes=1024
