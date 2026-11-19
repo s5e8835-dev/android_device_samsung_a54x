@@ -211,3 +211,13 @@ $(call soong_config_set,cbd,protocol,sipc)
 
 ## Bluetooth
 BOARD_HAVE_BLUETOOTH_SLSI := true
+
+## Wi-Fi
+BOARD_WLAN_DEVICE                := slsi
+BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_slsi
+BOARD_HOSTAPD_DRIVER             := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_slsi
+WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
+WPA_SUPPLICANT_VERSION           := VER_0_8_X
