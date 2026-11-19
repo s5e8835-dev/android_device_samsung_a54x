@@ -424,3 +424,6 @@ PRODUCT_PACKAGES += \
     A54xDialerOverlay \
     A54xSettingsOverlay \
     A54xTelephonyOverlay
+
+# Face unlock
+TARGET_FACE_UNLOCK_SUPPORTED := true
