@@ -349,8 +349,12 @@ ndk::ScopedAStatus Vibrator::activate(uint32_t timeoutMs) {
 }
 
 ndk::ScopedAStatus Vibrator::uploadFFEffect(short effectId, int timeoutMs) {
-    int16_t data[2] = {0, effectId};
     int ret;
+    int16_t data[2];
+
+    // aw8622x haptic
+    data[0] = effectId;
+    data[1] = 0;
 
     // Remove previously uploaded effect in case it exists
     ret = ioctl(mVibratorFd, EVIOCRMFF, 0);
