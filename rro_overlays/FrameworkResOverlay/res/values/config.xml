@@ -339,4 +339,39 @@
 
     <!-- Whether the device enable the non-standalone (NSA) mode of 5G NR.-->
     <bool name="config_telephony5gNonStandalone">true</bool>
+
+    <!-- Stock a54xnaxx brightness policy, normalized to the extended range 0..510. -->
+    <item name="config_screenBrightnessSettingMinimumFloat" format="float" type="dimen">0.0</item>
+    <item name="config_screenBrightnessSettingMaximumFloat" format="float" type="dimen">1.0</item>
+    <item name="config_screenBrightnessSettingDefaultFloat" format="float" type="dimen">0.2509803922</item>
+    <item name="config_screenBrightnessDimFloat" format="float" type="dimen">0.02156862745</item>
+
+    <!-- Use the stock lux-to-nits curve instead of the inherited backlight curve. -->
+    <array name="config_autoBrightnessDisplayValuesNits">
+        <item>11</item>
+        <item>15</item>
+        <item>22</item>
+        <item>26</item>
+        <item>31</item>
+        <item>35</item>
+        <item>46</item>
+        <item>62</item>
+        <item>79</item>
+        <item>88</item>
+        <item>93</item>
+        <item>99</item>
+        <item>111</item>
+        <item>130</item>
+        <item>190</item>
+        <item>340</item>
+        <item>500</item>
+        <item>650</item>
+        <item>800</item>
+        <item>1000</item>
+        <item>1000</item>
+        <item>1000</item>
+        <item>1000</item>
+        <item>1000</item>
+        <item>1000</item>
+    </array>
 </resources>
