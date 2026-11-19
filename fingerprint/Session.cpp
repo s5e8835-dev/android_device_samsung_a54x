@@ -222,7 +222,27 @@ ndk::ScopedAStatus Session::onPointerDown(int32_t /*pointerId*/, int32_t /*x*/, 
     // in sync with the framework dim layer, so the backlight is left alone here.
 
     if (FingerprintHalProperties::request_touch_event().value_or(false)) {
-        mHal.request(SEM_REQUEST_TOUCH_EVENT, 2);
+        const uint32_t press = ++*mPressGeneration;
+        std::string sensorTypeProp = FingerprintHalProperties::type().value_or("");
+        if (sensorTypeProp == "udfps_optical") {
+            // Only report the finger once the panel actually shows the mask brightness, so the
+            // sensor never captures (and learns from) an image taken before the light is up.
+            std::thread([hal = mHal, generation = mPressGeneration, press]() mutable {
+                constexpr auto kStep = 4ms;
+                constexpr auto kTimeout = 200ms;
+                for (auto waited = 0ms; waited < kTimeout; waited += kStep) {
+                    int actualMask = 0;
+                    std::ifstream infile("/sys/class/lcd/panel/actual_mask_brightness");
+                    if (infile >> actualMask && actualMask > 0) break;
+                    std::this_thread::sleep_for(kStep);
+                }
+                if (generation->load() == press) {
+                    hal.request(SEM_REQUEST_TOUCH_EVENT, 2);
+                }
+            }).detach();
+        } else {
+            mHal.request(SEM_REQUEST_TOUCH_EVENT, 2);
+        }
     }
     checkSensorLockout();
 
@@ -238,6 +258,7 @@ ndk::ScopedAStatus Session::onPointerUp(int32_t /*pointerId*/) {
     }
 
     if (FingerprintHalProperties::request_touch_event().value_or(false)) {
+        ++*mPressGeneration;
         mHal.request(SEM_REQUEST_TOUCH_EVENT, 1);
     }
 
