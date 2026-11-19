@@ -18,6 +18,7 @@
 #include <unistd.h>
 
 #include <atomic>
+#include <cctype>
 #include <chrono>
 #include <condition_variable>
 #include <cstdio>
@@ -27,9 +28,11 @@
 #include <mutex>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 #include <log/log.h>
 #include <sys/system_properties.h>
+#include <sys/uio.h>
 #include <telephony/ril.h>
 
 #ifndef REAL_LIB_NAME
@@ -129,8 +132,32 @@ static int gShimTokenStorage = 0;
 static RIL_Token gShimToken = &gShimTokenStorage;
 static std::atomic<bool> gWatcherStarted{false};
 
+struct TrackedRequest {
+    int request;
+    RIL_SOCKET_ID socketId;
+};
+
 static std::mutex gTokenMapMutex;
-static std::unordered_map<RIL_Token, int> gTokenRequestMap;
+static std::unordered_map<RIL_Token, TrackedRequest> gTokenRequestMap;
+
+// While the eUICC powers up (slot switch at boot, SIM power cycles), RIL reports
+// GET_SIM_STATUS on its socket as PRESENT with no applications and no ATR.
+// Telephony then builds a plain UiccCard, and once the eUICC ATR shows up it
+// casts that card to EuiccCard and com.android.phone crashes. Report such
+// half-initialised states as ABSENT and ask telephony to poll again shortly, so
+// the card is only created once its ATR identifies it as an eUICC.
+static constexpr size_t kCardStatusNumAppsOffset = 5 * sizeof(int);
+static constexpr size_t kCardStatusAppsEnd =
+        kCardStatusNumAppsOffset + sizeof(int) + RIL_CARD_MAX_APPS * sizeof(RIL_AppStatus);
+static constexpr int kSimStatusRepollDelayMs = 2000;
+static constexpr char kSimMaskStatsProp[] = "vendor.calls.esim_simmask";
+// ATR pointer offset in Samsung's card status on A546B CP firmware; re-learned
+// if a status ever shows something else there.
+static constexpr long kDefaultAtrOffset = 416;
+static std::atomic<long> gAtrOffset{kDefaultAtrOffset};
+static std::atomic<int64_t> gSimStatusRepollAtMs{0};
+static std::atomic<int> gSimStatusMasked{0};
+static std::atomic<int> gSimStatusRepolls{0};
 
 static std::mutex gReqMu;
 static std::condition_variable gReqCv;
@@ -572,6 +599,11 @@ static bool slotTypeIsPsim() {
     return !slotTypeIsEsim();
 }
 
+static int64_t nowMs() {
+    return std::chrono::duration_cast<std::chrono::milliseconds>(
+            std::chrono::steady_clock::now().time_since_epoch()).count();
+}
+
 static void setEsimReady(bool ready) {
     __system_property_set(kEsimReadyProp, ready ? "1" : "0");
     ALOGI("%s=%s (type2=%s)",
@@ -588,6 +620,122 @@ static bool waitFor(bool (*pred)(), int timeoutMs) {
         usleep(stepMs * 1000);
     }
     return pred();
+}
+
+static void publishSimMaskStats() {
+    char buf[PROP_VALUE_MAX];
+    std::snprintf(buf, sizeof(buf), "masked=%d repoll=%d atroff=%ld",
+            gSimStatusMasked.load(), gSimStatusRepolls.load(), gAtrOffset.load());
+    __system_property_set(kSimMaskStatsProp, buf);
+}
+
+// Copy n bytes from addr without faulting on a bad pointer.
+static bool safeRead(const void* addr, void* buf, size_t n) {
+    struct iovec local = {buf, n};
+    struct iovec remote = {const_cast<void*>(addr), n};
+    return process_vm_readv(getpid(), &local, 1, &remote, 1, 0) == static_cast<ssize_t>(n);
+}
+
+// Read a NUL-terminated string of at most maxLen chars; false if unreadable.
+static bool safeReadString(const char* p, char* out, size_t maxLen) {
+    if (p == nullptr) {
+        return false;
+    }
+    for (size_t i = 0; i < maxLen; ++i) {
+        if (!safeRead(p + i, &out[i], 1)) {
+            return false;
+        }
+        if (out[i] == '\0') {
+            return true;
+        }
+    }
+    out[maxLen] = '\0';
+    return true;
+}
+
+static bool looksLikeAtr(const char* s) {
+    const size_t len = std::strlen(s);
+    if (len < 4 || (s[0] != '3') || (s[1] != 'B' && s[1] != 'b' && s[1] != 'F' && s[1] != 'f')) {
+        return false;
+    }
+    for (size_t i = 0; i < len; ++i) {
+        if (!std::isxdigit(static_cast<unsigned char>(s[i]))) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Samsung extends RIL_CardStatus_v6 with ATR/ICCID/EID string pointers after
+// the applications array; their order isn't public, so locate the ATR by
+// content. Returns: 1 ATR present, 0 ATR field empty, -1 layout unknown.
+static int cardStatusAtrState(const void* response, size_t responselen) {
+    const char* base = static_cast<const char*>(response);
+    char str[96];
+    long off = gAtrOffset;
+    if (off >= 0 && static_cast<size_t>(off) + sizeof(char*) <= responselen) {
+        const char* p;
+        std::memcpy(&p, base + off, sizeof(p));
+        if (p == nullptr || !safeReadString(p, str, sizeof(str) - 1) || str[0] == '\0') {
+            return 0;
+        }
+        if (looksLikeAtr(str)) {
+            return 1;
+        }
+        // Something else lives there: layout differs, search again.
+        ALOGW("card status: offset %ld is not the ATR, re-learning", off);
+        gAtrOffset = -1;
+        publishSimMaskStats();
+    }
+    for (size_t o = kCardStatusAppsEnd; o + sizeof(char*) <= responselen; o += sizeof(char*)) {
+        const char* p;
+        std::memcpy(&p, base + o, sizeof(p));
+        if (p != nullptr && safeReadString(p, str, sizeof(str) - 1) && looksLikeAtr(str)) {
+            gAtrOffset = static_cast<long>(o);
+            ALOGI("card status: ATR field at offset %zu (len %zu)", o, responselen);
+            publishSimMaskStats();
+            return 1;
+        }
+    }
+    return -1;
+}
+
+// True if this eUICC-socket card status is a half-initialised PRESENT state
+// that must not reach telephony yet.
+static bool shouldMaskEuiccCardStatus(const void* response, size_t responselen) {
+    if (!switchPropIs('1') || responselen < kCardStatusAppsEnd) {
+        return false;
+    }
+    RIL_CardState state;
+    int numApps;
+    std::memcpy(&state, response, sizeof(state));
+    std::memcpy(&numApps, static_cast<const char*>(response) + kCardStatusNumAppsOffset,
+            sizeof(numApps));
+    if (state != RIL_CARDSTATE_PRESENT || numApps != 0) {
+        return false;
+    }
+    // Unknown layout (never found an ATR): don't risk hiding the eUICC.
+    return cardStatusAtrState(response, responselen) == 0;
+}
+
+static void scheduleSimStatusRepoll() {
+    gSimStatusRepollAtMs = nowMs() + kSimStatusRepollDelayMs;
+}
+
+static void maybeRepollEsimSimStatus() {
+    const int64_t due = gSimStatusRepollAtMs;
+    if (due == 0 || nowMs() < due) {
+        return;
+    }
+    gSimStatusRepollAtMs = 0;
+    if (gRealEnv.OnUnsolicitedResponse == nullptr) {
+        return;
+    }
+    ++gSimStatusRepolls;
+    ALOGI("requesting SIM status re-poll on socket %d", static_cast<int>(kEuiccSocket));
+    publishSimMaskStats();
+    gRealEnv.OnUnsolicitedResponse(
+            RIL_UNSOL_RESPONSE_SIM_STATUS_CHANGED, nullptr, 0, kEuiccSocket);
 }
 
 // OEM often completes with SUCCESS before ril.simslottype2 updates; the type
@@ -835,12 +983,36 @@ static void shimOnRequestComplete(
     }
 
     int request = -1;
+    RIL_SOCKET_ID socketId = RIL_SOCKET_1;
     {
         std::lock_guard<std::mutex> lock(gTokenMapMutex);
         auto it = gTokenRequestMap.find(t);
         if (it != gTokenRequestMap.end()) {
-            request = it->second;
+            request = it->second.request;
+            socketId = it->second.socketId;
             gTokenRequestMap.erase(it);
+        }
+    }
+
+    if (request == RIL_REQUEST_GET_SIM_STATUS && e == RIL_E_SUCCESS && response != nullptr) {
+        // Learn / verify the ATR offset from any socket.
+        if (responselen >= kCardStatusAppsEnd) {
+            cardStatusAtrState(response, responselen);
+        }
+        // card_state is the first field of every RIL_CardStatus layout; patch a
+        // copy and leave the rest untouched.
+        if (socketId == kEuiccSocket && shouldMaskEuiccCardStatus(response, responselen)) {
+            std::vector<uint64_t> copy((responselen + sizeof(uint64_t) - 1) / sizeof(uint64_t));
+            std::memcpy(copy.data(), response, responselen);
+            const RIL_CardState absent = RIL_CARDSTATE_ABSENT;
+            std::memcpy(copy.data(), &absent, sizeof(absent));
+            ++gSimStatusMasked;
+            ALOGI("GET_SIM_STATUS socket %d: PRESENT without apps/ATR -> ABSENT",
+                    static_cast<int>(socketId));
+            publishSimMaskStats();
+            scheduleSimStatusRepoll();
+            gRealEnv.OnRequestComplete(t, e, copy.data(), responselen);
+            return;
         }
     }
 
@@ -886,7 +1058,7 @@ static void shimOnRequest(
 
     {
         std::lock_guard<std::mutex> lock(gTokenMapMutex);
-        gTokenRequestMap[token] = request;
+        gTokenRequestMap[token] = TrackedRequest{request, socketId};
     }
 
     gRealOnRequest(request, data, datalen, token, socketId);
@@ -949,6 +1121,8 @@ static void* esimSwitchWatcher(void*) {
     }
 
     while (true) {
+        maybeRepollEsimSimStatus();
+
         char cur[PROP_VALUE_MAX] = {};
         __system_property_get(kEsimSwitchProp, cur);
 
