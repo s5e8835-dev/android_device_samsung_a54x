@@ -5,7 +5,7 @@
 // 2) Trigger tsds2 eSIM slot switch via OEM SEC_SIM_LOW_LEVEL_CONTROL when
 //    vendor.calls.esim_switch is set to 0/1.
 //
-// OEM 0x10 on RIL_SOCKET_1 flips ril.simslottype2=1 and RIL publishes EID via
+// OEM 0x10 on RIL_SOCKET_2 (hybrid slot) flips ril.simslottype2=1 and RIL publishes EID via
 // GET_SLOT_STATUS. Do NOT thrash RADIO_POWER / SET_SIM_CARD_POWER on the
 // primary socket — that knocks the pSIM offline and races SlotStatus.
 // Ready == simslottype2==1 (EID appears with the type flip).
@@ -100,9 +100,11 @@ static std::mutex gTrackMu;
 // SEC_SIM_LOW_LEVEL_CONTROL: opcode 0x06001415, payload 01 <type>
 // 0x10 = switch hybrid slot to eSIM; 0x11 = back to physical.
 // 0x20 = Samsung post-switch follow-up (ExecuteSlotSwitch soft path).
+// 0x21 = prepare; stock a54x ExecuteSlotSwitch sends it before 0x10/0x11.
 static constexpr uint8_t kOemTypeEsim = 0x10;
 static constexpr uint8_t kOemTypePsim = 0x11;
 static constexpr uint8_t kOemTypeFollowUp = 0x20;
+static constexpr uint8_t kOemTypePrepare = 0x21;
 
 using SamsungRequestFunc = void (*)(
         int, void*, size_t, RIL_Token, RIL_SOCKET_ID);
@@ -136,7 +138,7 @@ static bool gAwaitingComplete = false;
 static int gCompleteErrno = 0;
 
 #if defined(ANDROID_MULTI_SIM)
-static constexpr RIL_SOCKET_ID kOemSocket = RIL_SOCKET_1;
+static constexpr RIL_SOCKET_ID kOemSocket = RIL_SOCKET_2;
 static constexpr RIL_SOCKET_ID kEuiccSocket = RIL_SOCKET_2;
 #else
 static constexpr RIL_SOCKET_ID kOemSocket = static_cast<RIL_SOCKET_ID>(0);
@@ -617,6 +619,7 @@ static void runEsimEnable() {
     setEsimReady(false);
     dbg("enable-start");
 
+    fireOemType(kOemTypePrepare, 5000);
     if (!fireOemType(kOemTypeEsim, 10000)) {
         ALOGW("initial eSIM OEM failed/timed out; still waiting for type");
     }
@@ -669,6 +672,7 @@ static void runEsimDisable() {
         return;
     }
 
+    fireOemType(kOemTypePrepare, 5000);
     if (!fireOemType(kOemTypePsim, 10000)) {
         ALOGW("initial pSIM OEM failed/timed out; still waiting for type");
     }
