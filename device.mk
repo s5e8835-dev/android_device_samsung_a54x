@@ -217,3 +217,20 @@ PRODUCT_PACKAGES += \
 # DRM
 PRODUCT_PACKAGES += \
     com.android.hardware.drm.clearkey
+
+# Camera
+PRODUCT_PACKAGES += \
+    libvpl
+
+$(call soong_config_set_bool,camera,ext_lib,true)
+$(call soong_config_set,libcameraservice,ext_lib,//$(LOCAL_PATH)/configs/camera:libcameraservice_extension.a54x)
+
+# android.hardware.camera feature declarations
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.camera.ar.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.ar.xml \
+    frameworks/native/data/etc/android.hardware.camera.autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.autofocus.xml \
+    frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    frameworks/native/data/etc/android.hardware.camera.front.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.front.xml \
+    frameworks/native/data/etc/android.hardware.camera.full.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.full.xml \
+    frameworks/native/data/etc/android.hardware.camera.raw.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.raw.xml \
+    frameworks/native/data/etc/android.hardware.camera.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.xml

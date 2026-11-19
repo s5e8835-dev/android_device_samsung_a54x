@@ -189,3 +189,8 @@ SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/system_ext
 ## Display
 BOARD_MINIMUM_DISPLAY_BRIGHTNESS := 1
 TARGET_SCREEN_DENSITY := 450
+
+## Camera
+$(call soong_config_set_bool,samsungCameraVars,usage_64bit,true)
+
+$(call soong_config_set,samsungCameraVars,extra_ids,60) # ID=60 is macro
