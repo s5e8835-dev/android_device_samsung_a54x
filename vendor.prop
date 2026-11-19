@@ -156,6 +156,7 @@ ro.boot.wificountrycode=00
 
 # crDroid blur
 
+debug.renderengine.blur_algorithm=kawase_darkmoon
 
 ro.surface_flinger.supports_background_blur=1
 
