@@ -82,3 +82,7 @@ ro.vendor.ddk.set.afbc=1
 ## GPU
 ro.egl.blobcache.multifile=true
 ro.egl.blobcache.multifile_limit=536870912
+
+## Media
+debug.stagefright.c2inputsurface=-1
+media.c2.hal.selection=aidl

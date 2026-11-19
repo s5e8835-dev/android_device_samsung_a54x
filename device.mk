@@ -194,3 +194,26 @@ PRODUCT_COPY_FILES += \
 # Display
 PRODUCT_PACKAGES += \
     displayconfig.xml
+
+# Codec2
+PRODUCT_PACKAGES += \
+    samsung.hardware.media.c2-service \
+    media_codecs_c2.xml \
+    media_codecs_performance_c2.xml \
+
+PRODUCT_PACKAGES += \
+    media_profiles_V1_0.xml \
+    libExynosC2H264Dec \
+    libExynosC2H264Enc \
+    libExynosC2HevcDec \
+    libExynosC2HevcEnc \
+    libExynosC2Vp8Dec \
+    libExynosC2Vp8Enc
+
+PRODUCT_PACKAGES += \
+    codec2.vendor.base.policy \
+    codec2.vendor.ext.policy
+
+# DRM
+PRODUCT_PACKAGES += \
+    com.android.hardware.drm.clearkey
