@@ -130,7 +130,7 @@ ndk::ScopedAStatus Vibrator::on(int32_t timeoutMs,
         writeNode(VIBRATOR_CP_TRIGGER_PATH, 0);  // Clear all effects
 
     if (mIsForceFeedbackVibrator)
-        uploadFFEffect(FF_EFFECT_IDS[Effect::CLICK], timeoutMs);
+        uploadConstantEffect(timeoutMs);
 
 #ifdef VIBRATOR_SUPPORTS_DURATION_AMPLITUDE_CONTROL
     timeoutMs *= mDurationAmplitude;
@@ -401,6 +401,29 @@ struct ff_effect effect = {
     ret = ioctl(mVibratorFd, EVIOCSFF, &effect);
     if (ret == -1) {
         LOG(ERROR) << "Effect upload failed: " << errno;
+        return ndk::ScopedAStatus::fromStatus(STATUS_UNKNOWN_ERROR);
+    }
+    mUploadedEffectId = effect.id;
+    return ndk::ScopedAStatus::ok();
+}
+
+ndk::ScopedAStatus Vibrator::uploadConstantEffect(int timeoutMs) {
+    int ret;
+    struct ff_effect effect{};
+
+    effect.type = FF_CONSTANT;
+    effect.id = -1;
+    effect.replay.length = static_cast<uint16_t>(timeoutMs);
+
+    ret = ioctl(mVibratorFd, EVIOCRMFF, mUploadedEffectId);
+    if (ret == -1 && mUploadedEffectId != -1) {
+        LOG(WARNING) << "Failed to remove effect";
+        mUploadedEffectId = -1;
+    }
+
+    ret = ioctl(mVibratorFd, EVIOCSFF, &effect);
+    if (ret == -1) {
+        LOG(ERROR) << "Constant effect upload failed: " << errno;
         return ndk::ScopedAStatus::fromStatus(STATUS_UNKNOWN_ERROR);
     }
     mUploadedEffectId = effect.id;
