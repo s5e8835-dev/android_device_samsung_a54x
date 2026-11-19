@@ -1,2 +1,5 @@
 ## Adoptable Storage
 ro.crypto.volume.options=aes-256-xts:aes-256-cts:v2
+
+## APK Verity
+ro.apk_verity.mode=2
