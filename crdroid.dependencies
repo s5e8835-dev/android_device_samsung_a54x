@@ -1,0 +1,86 @@
+[
+    {
+        "repository": "LineageOS/android_device_samsung_slsi_sepolicy",
+        "target_path": "device/samsung_slsi/sepolicy",
+        "branch": "lineage-24.0",
+        "remote": "github"
+    },
+    {
+        "repository": "crdroidandroid/android_hardware_samsung",
+        "target_path": "hardware/samsung",
+        "branch": "17.0",
+        "remote": "crdroid"
+    },
+    {
+        "repository": "LineageOS/android_hardware_samsung_slsi-linaro_codec2",
+        "target_path": "hardware/samsung_slsi-linaro/codec2",
+        "branch": "lineage-24.0",
+        "remote": "github"
+    },
+    {
+        "repository": "android_hardware_samsung_slsi-linaro_config",
+        "target_path": "hardware/samsung_slsi-linaro/config",
+        "branch": "lineage-24.0",
+        "remote": "s5e8835-dev"
+    },
+    {
+        "repository": "LineageOS/android_hardware_samsung_slsi-linaro_exynos",
+        "target_path": "hardware/samsung_slsi-linaro/exynos",
+        "branch": "lineage-24.0",
+        "remote": "github"
+    },
+    {
+        "repository": "LineageOS/android_hardware_samsung_slsi-linaro_exynos5",
+        "target_path": "hardware/samsung_slsi-linaro/exynos5",
+        "branch": "lineage-24.0",
+        "remote": "github"
+    },
+    {
+        "repository": "android_hardware_samsung_slsi-linaro_graphics",
+        "target_path": "hardware/samsung_slsi-linaro/graphics",
+        "branch": "lineage-24.0",
+        "remote": "s5e8835-dev"
+    },
+    {
+        "repository": "LineageOS/android_hardware_samsung_slsi-linaro_interfaces",
+        "target_path": "hardware/samsung_slsi-linaro/interfaces",
+        "branch": "lineage-24.0",
+        "remote": "github"
+    },
+    {
+        "repository": "LineageOS/android_hardware_samsung_slsi-linaro_openmax",
+        "target_path": "hardware/samsung_slsi-linaro/openmax",
+        "branch": "lineage-24.0",
+        "remote": "github"
+    },
+    {
+        "repository": "LineageOS/android_hardware_samsung_slsi_libbt",
+        "target_path": "hardware/samsung_slsi/libbt",
+        "branch": "lineage-24.0",
+        "remote": "github"
+    },
+    {
+        "repository": "LineageOS/android_hardware_samsung_slsi_scsc_wifibt_wifi_hal",
+        "target_path": "hardware/samsung_slsi/scsc_wifibt/wifi_hal",
+        "branch": "lineage-24.0",
+        "remote": "github"
+    },
+    {
+        "repository": "LineageOS/android_hardware_samsung_slsi_scsc_wifibt_wpa_supplicant_lib",
+        "target_path": "hardware/samsung_slsi/scsc_wifibt/wpa_supplicant_lib",
+        "branch": "lineage-24.0",
+        "remote": "github"
+    },
+    {
+        "repository": "android_kernel_samsung_s5e8835",
+        "target_path": "kernel/samsung/s5e8835",
+        "branch": "17.0",
+        "remote": "s5e8835-dev"
+    },
+    {
+        "repository": "proprietary_vendor_samsung_a54x",
+        "target_path": "vendor/samsung/a54x",
+        "branch": "17.0",
+        "remote": "s5e8835-dev"
+    }
+]
