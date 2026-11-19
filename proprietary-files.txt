@@ -326,6 +326,39 @@ vendor/lib64/libsfp_teegw.so
 vendor/lib64/libsynaFpSensorTestNwd.so
 vendor/lib64/vendor.samsung.hardware.biometrics.fingerprint-V1-ndk.so
 
+# RIL (Baseband)
+vendor/etc/init/init.baseband.rc
+vendor/etc/init/init.vendor.rilcommon.rc
+vendor/etc/init/vendor.samsung.rilchip.slsi.rc
+vendor/etc/init/vendor.samsung.rild.rc
+
+# RIL (Auxiliary)
+vendor/etc/plmn_delta.bin
+vendor/etc/plmn_delta_attaio.bin
+vendor/etc/plmn_delta_usagsm.bin
+vendor/etc/plmn_se13_prebuilt.bin
+vendor/lib64/libengmode_client.so
+vendor/lib64/libfloatingfeature.so
+vendor/lib64/libvkmanager_vendor.so
+
+# RIL - from a55x - A556EXXSABYI2
+vendor/bin/hw/rild|e00d12047f9a3ce9eb75f38c6f43fa82564827f3
+vendor/etc/vintf/manifest/vendor.samsung.hardware.radio.exclude.slsi.xml|c3f8ea3f6228f2d572081b0c0ae29a251de4350b
+vendor/etc/vintf/manifest/vendor.samsung.hardware.radio_manifest_2_34.xml|8a78a095378827de038b13e0470f6b43d60cf71a
+vendor/etc/vintf/manifest/vendor.samsung.hardware.sehradio_manifest_2_34.xml|ebbe359a9b2d78cb88debe79d9183c039afb7c01
+vendor/lib64/libVendorSemDataProps.so|68dae919cb8e4a36246fe6c3548fe7faf398bfcb
+vendor/lib64/libVendorSemTelephonyProps.so|684afb42daeec36fbb37987b06afb236df394a22
+vendor/lib64/libril_sem.so|489bdbfd9701e3b1979b8cc05133c733cc7f586b
+vendor/lib64/libsec-ril.so:vendor/lib64/libsec-ril-impl.so;FIX_SONAME|b80d415c8f91c2b0134cc8ce550fb42cf654707f|3ae29cf950efb59a8b929b72992c0f7787d5b101
+vendor/lib64/libsecril-client.so|08be69e0a57e034f6b0b653aaff201509d7dfc5b
+vendor/lib64/libsemnativecarrierfeature.so|3a8102145028c96e7120ca5cb49b56b0f4b91f32
+vendor/lib64/vendor.samsung.hardware.radio-V1-ndk.so|05642682fee7b774b674bee8d5389e42919e2691
+vendor/lib64/vendor.samsung.hardware.radio.bridge-V1-ndk.so|7cea75e71274826e54c9ca5a3664e93d9ce42900
+vendor/lib64/vendor.samsung.hardware.radio.channel-V1-ndk.so|0c8caafffe1de898809ff33e5c3ef84a9149588d
+vendor/lib64/vendor.samsung.hardware.radio.data-V1-ndk.so|de741fe8c442fbf555020cbf01c5cdff2d93c58f
+vendor/lib64/vendor.samsung.hardware.radio.messaging-V1-ndk.so|253e1ee51bba7e8a61e93abc198c48cdfa21cf28
+vendor/lib64/vendor.samsung.hardware.radio.sim-V1-ndk.so|a2f0be5b802aa317d05f388b44a8b1917b02cfd7
+
 # RAMDisk
 vendor/firmware/s3907_a54x.bin:recovery/root/vendor/firmware/s3907_a54x.bin
 vendor/firmware/s3907_a54x.bin:vendor_ramdisk/vendor/firmware/s3907_a54x.bin
