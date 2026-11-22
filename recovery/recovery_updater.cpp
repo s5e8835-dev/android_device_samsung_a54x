@@ -14,14 +14,92 @@
  * limitations under the License.
  */
 
+#include <endian.h>
 #include <fcntl.h>
 #include <libgen.h>
 #include <unistd.h>
 
+#include <cstdint>
+#include <cstring>
+
+#include <android-base/file.h>
 #include <android-base/properties.h>
+#include <android-base/unique_fd.h>
 #include <edify/expr.h>
 #include <otautil/error_code.h>
 #include <ziparchive/zip_archive.h>
+
+namespace {
+
+// Samsung CP TOC layout, also used by cpboot_v3.
+struct ModemTocEntry {
+  char name[12];
+  uint32_t offset;
+  uint32_t load_address;
+  uint32_t size;
+  uint32_t crc;
+  uint32_t count;
+};
+static_assert(sizeof(ModemTocEntry) == 32);
+
+std::string ReadModemVersion(int fd) {
+  constexpr size_t kMaxEntries = 16;
+  constexpr size_t kFooterAlignment = 16;
+  constexpr size_t kQbrOffset = 16;
+  constexpr size_t kVersionOffset = 32;
+  constexpr size_t kVersionLength = 13;
+  ModemTocEntry toc[kMaxEntries];
+  if (!android::base::ReadFullyAtOffset(fd, toc, sizeof(toc), 0) ||
+      std::memcmp(toc[0].name, "TOC", sizeof("TOC")) != 0) {
+    return {};
+  }
+
+  const uint32_t count = le32toh(toc[0].count);
+  if (count < 2 || count > kMaxEntries) {
+    return {};
+  }
+  for (uint32_t i = 1; i < count; ++i) {
+    if (std::memcmp(toc[i].name, "VSS", sizeof("VSS")) != 0) {
+      continue;
+    }
+    const uint32_t offset = le32toh(toc[i].offset);
+    const uint32_t size = le32toh(toc[i].size);
+    if (offset < sizeof(toc) || size == 0) {
+      return {};
+    }
+
+    // EYI4's signing footer starts at the first 16-byte boundary after VSS.
+    const uint64_t end = static_cast<uint64_t>(offset) + size;
+    const uint64_t footer_offset = (end + kFooterAlignment - 1) & ~(kFooterAlignment - 1);
+    char footer[kVersionOffset + kVersionLength + 1];
+    if (!android::base::ReadFullyAtOffset(fd, footer, sizeof(footer), footer_offset) ||
+        std::memcmp(footer, "SignerVer03", sizeof("SignerVer03")) != 0 ||
+        std::memcmp(footer + kQbrOffset, "QBR", sizeof("QBR")) != 0 ||
+        footer[kVersionOffset + kVersionLength] != '_') {
+      return {};
+    }
+
+    std::string version(footer + kVersionOffset, kVersionLength);
+    if (version.find_first_not_of("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ") != std::string::npos) {
+      return {};
+    }
+    return version;
+  }
+  return {};
+}
+
+Value* ModemVersionFn(const char* name, State* state,
+                      const std::vector<std::unique_ptr<Expr>>& argv) {
+  if (!argv.empty()) {
+    return ErrorAbort(state, kArgsParsingFailure, "%s() expects no arguments", name);
+  }
+
+  android::base::unique_fd fd(open("/dev/block/by-name/radio", O_RDONLY | O_CLOEXEC));
+  const std::string version = fd.ok() ? ReadModemVersion(fd.get()) : "";
+  return StringValue(version.empty() ? "unknown (could not read CP version)" : version);
+}
+
+}  // namespace
 
 Value *VerifyNoDowngradeFn(const char* name, State *state,
                              const std::vector<std::unique_ptr<Expr>>& argv) {
@@ -131,6 +209,7 @@ Value *WriteDataBtFn(const char* name, State *state,
 }
 
 void Register_librecovery_updater_s5e8835() {
+  RegisterFunction("s5e8835.modem_version", ModemVersionFn);
   RegisterFunction("s5e8835.verify_no_downgrade", VerifyNoDowngradeFn);
   RegisterFunction("s5e8835.mark_header_bt", MarkHeaderBtFn);
   RegisterFunction("s5e8835.write_data_bt", WriteDataBtFn);
